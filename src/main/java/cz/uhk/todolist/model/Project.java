@@ -11,14 +11,32 @@ public class Project extends TimeManager {
     {
         this.description = name;
         this.processes = processes;
-        this.estimatedDeadline = estimatedTime;
+        this.deadline = estimatedTime;
     }
 
     public Project(String name, float estimatedTime)
     {
         this.description = name;
-        this.estimatedDeadline = estimatedTime;
+        this.deadline = estimatedTime;
     }
+
+    //METODY
+
+    public void computeEstimatedTimeSum()
+    {
+        float et = 0;
+        for(int i = 0; i < processes.size()-1; i++)
+        {
+            processes.get(i).computeEstimatedTimeSum();
+            if(processes.get(i).getDeadline() < processes.get(i).getDeadline())
+                et += processes.get(i).getDeadline();
+            else
+                et += processes.get(i).getCurrentTime();
+        }
+        deadLineSum = et;
+    }
+
+    //GETTERY SETTERY
 
     public void addProcess(Process process)
     {

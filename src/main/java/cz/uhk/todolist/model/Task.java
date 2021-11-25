@@ -9,7 +9,7 @@ public class Task extends TimeManager {
     //CONSTRUCTORY
     public Task(String description, float estimatedTime,int previousTaskId, int nextTaskId) {
         this.description = description;
-        this.estimatedDeadline = estimatedTime;
+        this.deadline = estimatedTime;
         this.previousTaskPosition = previousTaskId;
         this.nextTaskPosition = nextTaskId;
     }

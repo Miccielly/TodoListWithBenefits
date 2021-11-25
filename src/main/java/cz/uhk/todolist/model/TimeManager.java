@@ -6,9 +6,10 @@ public class TimeManager {
     protected String description;
 
     //ČAS
-    protected float estimatedDeadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
-    protected float estimatedTimeSum; //suma času úloh
+    protected float deadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
+    protected float deadLineSum; //suma času úloh
     protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+    //protected float currentTimeSum; //suma aktuálních časů
 
 
 
@@ -21,29 +22,31 @@ public class TimeManager {
         this.description = description;
     }
 
-    public float getEstimatedDeadline() {
-        return estimatedDeadline;
+    public float getDeadline() {
+        return deadline;
     }
 
-    public void setEstimatedDeadline(int estimatedDeadline) {
-        this.estimatedDeadline = estimatedDeadline;
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
     }
 
-    public float getEstimatedTimeSum() {
-        return estimatedTimeSum;
-    }
-
-    public void setEstimatedTimeSum(float estimatedTimeSum) {
-        this.estimatedTimeSum = estimatedTimeSum;
+    public float getDeadLineSum() {
+        return deadLineSum;
     }
 
     public float getCurrentTime() {
         return currentTime;
     }
 
-    public void setCurrentTime(float currentTime) {
-        this.currentTime = currentTime;
+    public void updateCurrentTime()
+    {
+        //TODO přidat někde brát čas
     }
 
+    public float getTimeDifference()
+    {
+        updateCurrentTime();
+        return (getCurrentTime()- getDeadline());
+    }
 
 }
