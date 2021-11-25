@@ -31,6 +31,13 @@ public class IndexController {
         Process process = processes.get(0);
 
         System.out.println(process.getDescription());
+
+        for (Task task: process.getTasks()) {
+            System.out.println(task.getDescription() + " deadLine: "
+                    + task.getDeadline() + " previousTask: "
+                    + task.getPreviousTaskPosition() + " nextTask: "
+                    + task.getNextTaskPosition() + " position= " + (task.getPreviousTaskPosition()+1));
+        }
         model.addObject("process", process);
 
 

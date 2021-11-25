@@ -24,8 +24,11 @@ public class ProjectService {
 
         Process process = new Process("Proces01", 10);
 
-        process.addTask(new Task("Vynést koš", 5, -1, 1));
-        process.addTask(new Task("Spát", 360, 0, 1));
+        process.addTask(new Task("Spát", 360, 0, 2));   //1
+        process.addTask(new Task("Vstát", 20, 1, 3));   //2
+        process.addTask(new Task("Záchod", 15, 2, 1));  //3
+        process.addTask(new Task("Instagram", 35, 2, 1));   //3
+        process.addTask(new Task("Vynést koš", 5, 3, 5));   //4
 
         project.addProcess(process);
 

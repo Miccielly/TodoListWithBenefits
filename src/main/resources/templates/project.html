@@ -14,9 +14,9 @@
         <th>Show relations</th>
     </tr>
     <tr th:each="task: ${process.getTasks()}">
-        <td th:text="${task.getDescription()}" />
+<!--        <td th:text="${task.getDescription()}" />-->
 
-        <td><th:block th:text="${task.getEstimatedTime()}">estimatedTime</th:block></td>
+<!--        <td><th:block th:text="${task.getPreviousPosition()}">estimatedTime</th:block></td>-->
         <td></td>
         <td></td>
     </tr>
