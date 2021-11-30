@@ -1,6 +1,8 @@
 package cz.uhk.todolist.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Process extends TimeManager {
@@ -48,5 +50,30 @@ public class Process extends TimeManager {
     {
         updateCurrentTime();
         return (getCurrentTime()- getDeadline());
+    }
+    public void sortTasks()
+    {
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                if(t1.getPreviousTaskPosition() > t2.getPreviousTaskPosition())
+                    return 1;
+                if(t1.getPreviousTaskPosition() < t2.getPreviousTaskPosition())
+                    return -1;
+                return 0;
+            }
+        });
+    }
+    public void calculateCriticalPath()
+    {
+        //co má být vstup? -> list tasků v procesu
+        //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
+        //co má být výstup? -> taskům vypočtena hodnota časové rezervy
+        sortTasks();
+
+        for(int i = 0; i < tasks.size(); i++)
+        {
+
+        }
     }
 }

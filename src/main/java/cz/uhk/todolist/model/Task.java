@@ -2,21 +2,21 @@ package cz.uhk.todolist.model;
 
 public class Task extends TimeManager {
 
+    private float timeReserve = 0;
 
     //PRO ZAŘAZENÍ DO POSLOUPNOSTI TASKŮ
     protected int previousTaskPosition;
     protected int nextTaskPosition;
 
     //CONSTRUCTORY
-    public Task(String description, float estimatedTime,int previousTaskId, int nextTaskId) {
+    public Task(String description, float estimatedTime, int previousTaskId, int nextTaskId) {
         this.description = description;
         this.deadline = estimatedTime;
         this.previousTaskPosition = previousTaskId;
         this.nextTaskPosition = nextTaskId;
     }
 
-    public Task(String description, int previous, int next)
-    {
+    public Task(String description, int previous, int next) {
         this.description = description;
         this.previousTaskPosition = previous;
         this.nextTaskPosition = next;
@@ -40,4 +40,7 @@ public class Task extends TimeManager {
         this.nextTaskPosition = nextTaskPosition;
     }
 
+    public void setTimeReserve(float timeReserve) { this.timeReserve = timeReserve; }
+
+    public float getTimeReserve() { return timeReserve; }
 }
