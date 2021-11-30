@@ -6,7 +6,9 @@ import java.util.List;
 public class Project extends TimeManager {
 
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
+    private float deadLineSum; //suma času úloh
 
+    //KONSTRUKTORY
     public Project(String name, List<Process> processes, float estimatedTime)
     {
         this.description = name;
@@ -54,5 +56,19 @@ public class Project extends TimeManager {
 
     public void setName(String name) {
         this.description = name;
+    }
+
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
+    }
+
+    public float getDeadLineSum() {
+        return deadLineSum;
+    }
+
+    public float getTimeDifference()
+    {
+        updateCurrentTime();
+        return (getCurrentTime()- getDeadline());
     }
 }

@@ -7,11 +7,7 @@ public class TimeManager {
 
     //ČAS
     protected float deadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
-    protected float deadLineSum; //suma času úloh
     protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
-    //protected float currentTimeSum; //suma aktuálních časů
-
-
 
     //METODY
     public String getDescription() {
@@ -26,14 +22,6 @@ public class TimeManager {
         return deadline;
     }
 
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
-    }
-
-    public float getDeadLineSum() {
-        return deadLineSum;
-    }
-
     public float getCurrentTime() {
         return currentTime;
     }
@@ -42,11 +30,4 @@ public class TimeManager {
     {
         //TODO přidat někde brát čas
     }
-
-    public float getTimeDifference()
-    {
-        updateCurrentTime();
-        return (getCurrentTime()- getDeadline());
-    }
-
 }

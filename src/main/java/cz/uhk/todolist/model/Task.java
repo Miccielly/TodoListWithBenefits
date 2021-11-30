@@ -2,6 +2,7 @@ package cz.uhk.todolist.model;
 
 public class Task extends TimeManager {
 
+
     //PRO ZAŘAZENÍ DO POSLOUPNOSTI TASKŮ
     protected int previousTaskPosition;
     protected int nextTaskPosition;
