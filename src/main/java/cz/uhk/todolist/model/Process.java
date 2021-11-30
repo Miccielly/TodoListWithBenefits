@@ -55,10 +55,10 @@ public class Process extends TimeManager {
     {
         Collections.sort(tasks, new Comparator<Task>() {
             @Override
-            public int compare(Task t1, Task t2) {
-                if(t1.getPreviousTaskPosition() > t2.getPreviousTaskPosition())
+            public int compare(Task task1, Task task2) {
+                if(task1.getPreviousTaskPosition() > task2.getPreviousTaskPosition())
                     return 1;
-                if(t1.getPreviousTaskPosition() < t2.getPreviousTaskPosition())
+                if(task1.getPreviousTaskPosition() < task2.getPreviousTaskPosition())
                     return -1;
                 return 0;
             }
@@ -70,10 +70,26 @@ public class Process extends TimeManager {
         //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
         //co má být výstup? -> taskům vypočtena hodnota časové rezervy
         sortTasks();
-
+        System.out.println("Critical Path Calculation");
         for(int i = 0; i < tasks.size(); i++)
         {
+            for (int j = i+1; j < tasks.size(); j++)
+            {
+                if(tasks.get(j).getPreviousTaskPosition() == i
+                        //|| tasks.get(j).getPreviousTaskPosition() == tasks.get(i).getPreviousTaskPosition()
+                )
+                    System.out.println((i) + " | " + j + " = " + tasks.get(j).getDeadline());
+                else break;
+            }
 
+            //projít tasky směrem od začátku k cíli a přičítat čas cesty
         }
+
+        for(int i = tasks.size()-1; i >= 0; i--)
+        {
+            //projít tasky směrem od začátku k cíli a přičítat čas cesty
+            //projít tasky směrem od cíle a z připojených cest přidávat taskům zpáteční nejdelší cestu
+        }
+        //tasky které mají zpáteční cestu od cíle delší než cestu od startu získají hodnotu časové rezervy
     }
 }
