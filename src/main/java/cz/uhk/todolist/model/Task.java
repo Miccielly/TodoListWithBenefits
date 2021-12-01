@@ -9,9 +9,11 @@ public class Task extends TimeManager {
     protected int previousTaskId;
     protected int nextTaskId;
 
+
+
     //VÝPOČET KRITICKÉ CESTY
-    private int cost;
-    private int criticalCost;
+    private float cost = 0;
+    private float criticalCost = 0;
 
     //CONSTRUCTORY
     public Task(String description, float estimatedTime, int id, int previousTaskId, int nextTaskId) {
@@ -52,5 +54,22 @@ public class Task extends TimeManager {
     public void setTimeReserve(float timeReserve) { this.timeReserve = timeReserve; }
 
     public float getTimeReserve() { return timeReserve; }
+
+    //CPM
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public float getCriticalCost() {
+        return criticalCost;
+    }
+
+    public void setCriticalCost(float criticalCost) {
+        this.criticalCost = criticalCost;
+    }
 
 }

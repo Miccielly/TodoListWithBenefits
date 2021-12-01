@@ -82,6 +82,9 @@ public class Process extends TimeManager {
                 {
                     System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
+                    tasks.get(j).setCost( tasks.get(i).getDeadline() ); //přidat následujícímu taksu časovou náročnost předchozí úlohy
+                    //přidat sčítání předchozích costů
+                    //přidat porovnání pro přidání největšího čísla pokud je víc k dispozici
                 }
             }
 
