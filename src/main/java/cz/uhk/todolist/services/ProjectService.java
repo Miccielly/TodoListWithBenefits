@@ -24,14 +24,13 @@ public class ProjectService {
 
         Process process = new Process("Proces01", 10);
 
-        process.addTask(new Task("Spát", 360, -1, 1));   //0
-        process.addTask(new Task("Vstát", 20, 0, 2));   //1
-        process.addTask(new Task("Instagram", 35, 1, 3));   //2
-        process.addTask(new Task("Záchod", 15, 1, 3));  //2
-        process.addTask(new Task("Vynést koš", 5, 2, 4));   //3
+        process.addTask(new Task("Spát", 360, -1,0, 10));
+        process.addTask(new Task("Vstát", 20, 10,-1, 4));
+        process.addTask(new Task("Instagram", 35, 69,-1, 4));
+        process.addTask(new Task("Záchod", 15, 4,69, 11));
+        process.addTask(new Task("Vynést koš", 5, 11,4, 5));
 
         //2 - >
-        process.sortTasks();
         process.calculateCriticalPath();
         project.addProcess(process);
 

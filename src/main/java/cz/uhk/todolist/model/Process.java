@@ -30,7 +30,8 @@ public class Process extends TimeManager {
         float et = 0;
         for(int i = 0; i < tasks.size()-1; i++)
         {
-            if(tasks.get(i).getDeadline() < tasks.get(i).getDeadline())
+            //je překročen deadline?
+            if(tasks.get(i).getDeadline() > tasks.get(i).getCurrentTime())
                 et += tasks.get(i).getDeadline();
             else
                 et += tasks.get(i).getCurrentTime();
@@ -56,9 +57,9 @@ public class Process extends TimeManager {
         Collections.sort(tasks, new Comparator<Task>() {
             @Override
             public int compare(Task task1, Task task2) {
-                if(task1.getPreviousTaskPosition() > task2.getPreviousTaskPosition())
+                if(task1.getPreviousTaskId() > task2.getPreviousTaskId())
                     return 1;
-                if(task1.getPreviousTaskPosition() < task2.getPreviousTaskPosition())
+                if(task1.getPreviousTaskId() < task2.getPreviousTaskId())
                     return -1;
                 return 0;
             }
@@ -66,6 +67,8 @@ public class Process extends TimeManager {
     }
     public void calculateCriticalPath()
     {
+        //https://stackoverflow.com/questions/2985317/critical-path-method-algorithm
+
         //co má být vstup? -> list tasků v procesu
         //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
         //co má být výstup? -> taskům vypočtena hodnota časové rezervy
@@ -73,13 +76,13 @@ public class Process extends TimeManager {
         System.out.println("Critical Path Calculation");
         for(int i = 0; i < tasks.size(); i++)
         {
-            for (int j = i+1; j < tasks.size(); j++)
+            for (int j = 0; j < tasks.size(); j++)
             {
-                if(tasks.get(j).getPreviousTaskPosition() == i
-                        //|| tasks.get(j).getPreviousTaskPosition() == tasks.get(i).getPreviousTaskPosition()
-                )
-                    System.out.println((i) + " | " + j + " = " + tasks.get(j).getDeadline());
-                else break;
+                if(tasks.get(j).getPreviousTaskId() == tasks.get(i).getTaskId() || tasks.get(i).getNextTaskId() == tasks.get(j).getTaskId())
+                {
+                    System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
+
+                }
             }
 
             //projít tasky směrem od začátku k cíli a přičítat čas cesty
