@@ -8,8 +8,7 @@ public class Task extends TimeManager {
     private final int id;
     protected int previousTaskId;
     protected int nextTaskId;
-
-
+    protected boolean onlyNode = false;
 
     //VÝPOČET KRITICKÉ CESTY
     private float cost = 0;
@@ -31,6 +30,21 @@ public class Task extends TimeManager {
         this.nextTaskId = next;
     }
 
+    public Task(boolean startNode)
+    {
+        if(startNode)
+        {
+            this.id = 0;
+            this.description = "Start Node";
+        }
+        else
+        {
+            this.id = 9999;
+            this.description = "End Node";
+        }
+        onlyNode = true;
+    }
+
     //METODY
 
     public int getPreviousTaskId() {
@@ -47,6 +61,8 @@ public class Task extends TimeManager {
 
     public int getTaskId() { return id; }
 
+    public boolean isOnlyNode() { return onlyNode; }
+
     public void setNextTaskId(int nextTaskId) {
         this.nextTaskId = nextTaskId;
     }
@@ -61,7 +77,11 @@ public class Task extends TimeManager {
     }
 
     public void setCost(float cost) {
-        this.cost = cost;
+        float newCost = deadline + cost;
+
+        //Cestou od Start k End node přidáváme do hodnoty pouze největší z možných hran (pokud je na jeden node připojeno víc hran)
+        if(newCost > this.cost)
+            this.cost = deadline + cost;
     }
 
     public float getCriticalCost() {

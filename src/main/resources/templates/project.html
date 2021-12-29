@@ -5,7 +5,9 @@
 </head>
 <body>
 <p>
-    Project!!!!
+<!--    Project name:-->
+    <h1 th:text="${project.getDescription()}"></h1>
+<h2 th:text="${process.getDescription()}"></h2>
 <table border="1">
     <tr>
         <th>Task</th>
@@ -14,8 +16,8 @@
         <th>Show relations</th>
     </tr>
     <tr th:each="task: ${process.getTasks()}">
-<!--        <td th:text="${task.getDescription()}" />-->
-
+    <td th:text="${task.getDescription()}"></td>
+    <td th:text="${task.getCost()}"></td>
 <!--        <td><th:block th:text="${task.getPreviousPosition()}">estimatedTime</th:block></td>-->
         <td></td>
         <td></td>

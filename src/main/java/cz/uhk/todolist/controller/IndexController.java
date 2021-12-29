@@ -1,6 +1,7 @@
 package cz.uhk.todolist.controller;
 
 import cz.uhk.todolist.model.Process;
+import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.model.Task;
 import cz.uhk.todolist.services.ProjectService;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,8 @@ public class IndexController {
         ModelAndView model = new ModelAndView("project");
         ProjectService ps = new ProjectService();
 
-        List<Process> processes = ps.getProjects().get(0).getProcesses();
+        Project project = ps.getProjects().get(0);
+        List<Process> processes = project.getProcesses();
         Process process = processes.get(0);
 
         System.out.println(process.getDescription());
@@ -38,6 +40,7 @@ public class IndexController {
                     + task.getNextTaskId() + " position= " + (task.getPreviousTaskId()+1));
         }
         model.addObject("process", process);
+        model.addObject("project", project);
 
 
         return model;
