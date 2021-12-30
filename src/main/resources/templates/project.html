@@ -8,12 +8,14 @@
 <!--    Project name:-->
     <h1 th:text="${project.getDescription()}"></h1>
 <h2 th:text="${process.getDescription()}"></h2>
+<h3>Časová náročnost:</h3>
+<h3 th:text="${process.getDeadlineSum()}"></h3>
 <table border="1">
     <tr>
         <th>Task</th>
-        <th>Estimated Time</th>
-        <th>Current time</th>
-        <th>Show relations</th>
+        <th>Cumulative deadline</th>
+        <th>Tasks deadline</th>
+        <th>Reserve</th>
     </tr>
     <tr th:each="task: ${process.getTasks()}">
     <td th:text="${task.getDescription()}"></td>

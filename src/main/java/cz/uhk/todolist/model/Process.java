@@ -8,7 +8,7 @@ import java.util.List;
 public class Process extends TimeManager {
     //ÚLOHY
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
-    private float deadLineSum; //suma času úloh
+    private float deadlinesum; //suma času úloh
 
     //CONSTRUCTORY
     public Process(String description, float estimatedTime) {
@@ -36,15 +36,15 @@ public class Process extends TimeManager {
             else
                 et += tasks.get(i).getCurrentTime();
         }
-        deadLineSum = et;
+        deadlinesum = et;
     }
 
     public void setDeadline(int deadline) {
         this.deadline = deadline;
     }
 
-    public float getDeadLineSum() {
-        return deadLineSum;
+    public float getDeadlinesum() {
+        return deadlinesum;
     }
 
     public float getTimeDifference()
@@ -69,7 +69,8 @@ public class Process extends TimeManager {
     public void sortTasks()
     {
         List<Task> sorted = new ArrayList<>();
-
+        boolean endFound = false;
+        int endNodeIndex = -1;
         //najití start nodu
         for (int i = 0; i < tasks.size(); i++)
         {
@@ -77,6 +78,10 @@ public class Process extends TimeManager {
             {
                 sorted.add(tasks.get(i));   //přidání start node
                 System.out.println(tasks.get(i).getDescription());
+            }
+            else if ( !endFound && tasks.get(i).isOnlyNode() && tasks.get(i).getDescription() == "End Node") {
+                endNodeIndex = i;
+                endFound = true;
             }
         }
         //projití tasků napojených na start a pak další přidané tasky
@@ -91,18 +96,21 @@ public class Process extends TimeManager {
             }
         }
 
+        //Přidání end nodu do sortovaného listu tasků
+        if(endNodeIndex >= 0 )
+            sorted.add(tasks.get(endNodeIndex));
+
         tasks = sorted;
     }
     public void calculateCriticalPath()
     {
-        //definovat start nebo od konce najít cestu do startu
-        //https://stackoverflow.com/questions/2985317/critical-path-method-algorithm
-
-        //co má být vstup? -> list tasků v procesu
+        //Funguje pouze na seřazeném listu tasků, od start node do end node
         //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
         //co má být výstup? -> taskům vypočtena hodnota časové rezervy
         sortTasks();
-        System.out.println("Critical Path Calculation");
+        System.out.println("CPM Calculation");
+
+        //procházení od startu do konce
         for(int i = 0; i < tasks.size(); i++)
         {
             for (int j = 0; j < tasks.size(); j++)
@@ -112,22 +120,42 @@ public class Process extends TimeManager {
                         && (tasks.get(j).getPreviousTaskId() == tasks.get(i).getTaskId()
                         || tasks.get(i).getNextTaskId() == tasks.get(j).getTaskId()))
                 {
-                    System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
+                    //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
                     tasks.get(j).setCost( tasks.get(i).getCost()); //přidat následujícímu taksu časovou náročnost předchozí úlohy
-                    //přidat sčítání předchozích costů
-                    //přidat porovnání pro přidání největšího čísla pokud je víc k dispozici
                 }
             }
-
-            //projít tasky směrem od začátku k cíli a přičítat čas cesty
         }
 
+        deadlinesum = tasks.get(tasks.size()-1).getCost();
+        tasks.get(tasks.size()-1).setCriticalCost(deadlinesum- tasks.get(tasks.size()-1).getDeadline());
+        System.out.println(tasks.get(tasks.size()-1).getDescription() + " CriticalCost = " + tasks.get(tasks.size()-1).getCriticalCost());
+        //Procházení směrem od end do start
         for(int i = tasks.size()-1; i >= 0; i--)
         {
-            //projít tasky směrem od začátku k cíli a přičítat čas cesty
-            //projít tasky směrem od cíle a z připojených cest přidávat taskům zpáteční nejdelší cestu
+            System.out.println(i);
+            for(int j = tasks.size()-1; j >= 0; j--) {
+                //projít listu tásků směrem od cíle a odčítat jednotlivé deadliny od časové náročnosti celého modelu (časová náročnost posledního tasku, respektive endu)
+                if ((!(tasks.get(j).isOnlyNode() && tasks.get(i).isOnlyNode())   //start a ending node nesmí být spojený hranou
+                        && tasks.get(j).getTaskId() != tasks.get(i).getTaskId()) // task nesmí mít hranu sám na sebe
+                        && (tasks.get(j).getNextTaskId() == tasks.get(i).getTaskId()
+                        || tasks.get(i).getPreviousTaskId() == tasks.get(j).getTaskId()))
+                {
+                    System.out.println(tasks.get(i).getCriticalCost() + " - " + tasks.get(j).getDeadline());
+                    tasks.get(j).setCriticalCost(tasks.get(i).getCriticalCost()-tasks.get(j).getDeadline());
+                    //tasks.get(j).setTimeReserve(tasks.get(j).getCriticalCost() - tasks.get(j).getCost());
+                    System.out.println(tasks.get(j).getDescription() + " : " +tasks.get(j).getCriticalCost());
+
+                }
+            }
         }
+        System.out.println("CPM Calculated");
+
         //tasky které mají zpáteční cestu od cíle delší než cestu od startu získají hodnotu časové rezervy
+    }
+
+    public float getDeadlineSum()
+    {
+        return deadlinesum;
     }
 }
