@@ -12,7 +12,7 @@ public class Task extends TimeManager {
 
     //VÝPOČET KRITICKÉ CESTY
     private float cost = 0;
-    private float criticalCost = 0;
+    private float criticalCost = 9999999;
 
     //CONSTRUCTORY
     public Task(String description, float estimatedTime, int id, int previousTaskId, int nextTaskId) {
@@ -77,11 +77,15 @@ public class Task extends TimeManager {
     }
 
     public void setCost(float cost) {
-        float newCost = deadline + cost;
+        /*float newCost = deadline + cost;
 
         //Cestou od Start k End node přidáváme do hodnoty pouze největší z možných hran (pokud je na jeden node připojeno víc hran)
         if(newCost > this.cost)
             this.cost = deadline + cost;
+
+         */
+
+        this.cost = cost;
     }
 
     public float getCriticalCost() {

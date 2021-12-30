@@ -122,7 +122,9 @@ public class Process extends TimeManager {
                 {
                     //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
-                    tasks.get(j).setCost( tasks.get(i).getCost()); //přidat následujícímu taksu časovou náročnost předchozí úlohy
+                    float newCost = tasks.get(i).getDeadline() + tasks.get(i).getCost();
+                    if(newCost > tasks.get(j).getCost())
+                        tasks.get(j).setCost( tasks.get(i).getDeadline() + tasks.get(i).getCost()); //přidat následujícímu tasku časovou náročnost předchozí úlohy
                 }
             }
         }
@@ -130,10 +132,11 @@ public class Process extends TimeManager {
         deadlinesum = tasks.get(tasks.size()-1).getCost();
         tasks.get(tasks.size()-1).setCriticalCost(deadlinesum- tasks.get(tasks.size()-1).getDeadline());
         System.out.println(tasks.get(tasks.size()-1).getDescription() + " CriticalCost = " + tasks.get(tasks.size()-1).getCriticalCost());
+
         //Procházení směrem od end do start
         for(int i = tasks.size()-1; i >= 0; i--)
         {
-            System.out.println(i);
+            //System.out.println(i);
             for(int j = tasks.size()-1; j >= 0; j--) {
                 //projít listu tásků směrem od cíle a odčítat jednotlivé deadliny od časové náročnosti celého modelu (časová náročnost posledního tasku, respektive endu)
                 if ((!(tasks.get(j).isOnlyNode() && tasks.get(i).isOnlyNode())   //start a ending node nesmí být spojený hranou
@@ -142,10 +145,12 @@ public class Process extends TimeManager {
                         || tasks.get(i).getPreviousTaskId() == tasks.get(j).getTaskId()))
                 {
                     System.out.println(tasks.get(i).getCriticalCost() + " - " + tasks.get(j).getDeadline());
-                    tasks.get(j).setCriticalCost(tasks.get(i).getCriticalCost()-tasks.get(j).getDeadline());
-                    //tasks.get(j).setTimeReserve(tasks.get(j).getCriticalCost() - tasks.get(j).getCost());
-                    System.out.println(tasks.get(j).getDescription() + " : " +tasks.get(j).getCriticalCost());
 
+                    float newCriticalCost = tasks.get(i).getCriticalCost()-tasks.get(j).getDeadline();
+                    if(newCriticalCost < tasks.get(j).getCriticalCost())
+                        tasks.get(j).setCriticalCost(newCriticalCost);
+
+                    tasks.get(j).setTimeReserve(tasks.get(j).getCriticalCost() - tasks.get(j).getCost());
                 }
             }
         }

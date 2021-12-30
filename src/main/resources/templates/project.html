@@ -13,16 +13,15 @@
 <table border="1">
     <tr>
         <th>Task</th>
-        <th>Cumulative deadline</th>
-        <th>Tasks deadline</th>
-        <th>Reserve</th>
+        <th>V jaký čas od startu začít</th>
+        <th>Čas přidělený k úloze</th>
+        <th>Časová rezerva</th>
     </tr>
     <tr th:each="task: ${process.getTasks()}">
     <td th:text="${task.getDescription()}"></td>
     <td th:text="${task.getCost()}"></td>
-<!--        <td><th:block th:text="${task.getPreviousPosition()}">estimatedTime</th:block></td>-->
-        <td></td>
-        <td></td>
+    <td th:text="${task.getDeadline()}"></td>
+    <td th:text="${task.getTimeReserve()}"></td>
     </tr>
 </table>
 </p>
