@@ -27,6 +27,16 @@ public class Project extends TimeManager {
 
     }
 
+    public Project(String name)
+    {
+        this.description = name;
+    }
+
+    public Project()
+    {
+
+
+    }
     //METODY
 
     public void computeEstimatedTimeSum()

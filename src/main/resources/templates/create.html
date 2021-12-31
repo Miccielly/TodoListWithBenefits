@@ -4,8 +4,13 @@
     <title>Hello</title>
 </head>
 <body>
+<h1>Přidání projektu</h1>
 <p>
-    Hey there!
+    <form action= "#" th:action="@{/createProject}" th:object="${project}" method="post">
+    Project name:
+<!--    <input type="text" id="projectname" th:field="*{setDescription()}"><br><br>-->
+    <button type="submit">Add project</button>
+    </form>
 </p>
 </body>
 </html>

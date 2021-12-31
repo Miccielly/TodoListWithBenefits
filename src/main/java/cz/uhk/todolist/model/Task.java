@@ -76,17 +76,7 @@ public class Task extends TimeManager {
         return cost;
     }
 
-    public void setCost(float cost) {
-        /*float newCost = deadline + cost;
-
-        //Cestou od Start k End node přidáváme do hodnoty pouze největší z možných hran (pokud je na jeden node připojeno víc hran)
-        if(newCost > this.cost)
-            this.cost = deadline + cost;
-
-         */
-
-        this.cost = cost;
-    }
+    public void setCost(float cost) { this.cost = cost; }
 
     public float getCriticalCost() {
         return criticalCost;

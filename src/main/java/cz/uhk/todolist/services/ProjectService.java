@@ -3,15 +3,12 @@ package cz.uhk.todolist.services;
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.model.Task;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectService {
-    private List<Project> projects = new ArrayList<>();   //seznam úloh v procesu
+    private List<Project> projects = new ArrayList<>();
 
     public List<Project> getProjects()
     {
