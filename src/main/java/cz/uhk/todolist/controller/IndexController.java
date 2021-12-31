@@ -34,8 +34,14 @@ public class IndexController {
         model.addObject("process", process);
         model.addObject("project", project);
 
-
         return model;
     }
+
+    @GetMapping({"/create"})
+    public String create()
+    {
+        return "create";
+    }
+
 
 }

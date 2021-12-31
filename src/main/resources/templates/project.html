@@ -7,7 +7,9 @@
 <p>
 <!--    Project name:-->
     <h1 th:text="${project.getDescription()}"></h1>
-<h2 th:text="${process.getDescription()}"></h2>
+    <h1 th:text="${project.getCurrentDate()}"></h1>
+<p th:text="${project.getDateDifference()}"></p>
+<h1 th:text="${process.getDescription()}"></h1>
 <h3>Časová náročnost:</h3>
 <h3 th:text="${process.getDeadlineSum()}"></h3>
 <table border="1">

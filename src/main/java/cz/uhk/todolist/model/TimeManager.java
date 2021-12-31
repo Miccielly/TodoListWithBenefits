@@ -1,5 +1,9 @@
 package cz.uhk.todolist.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+
 //TŘÍDA OBSAHUJE ATRIBUTY POTŘEBNÉ K VÝPOČTU ČASŮ
 public class TimeManager {
     //Popis
@@ -9,6 +13,8 @@ public class TimeManager {
     protected float deadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
     protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
 
+    //Dates
+    protected LocalDateTime startDate;
     //METODY
     public String getDescription() {
         return description;
@@ -30,4 +36,14 @@ public class TimeManager {
     {
         //TODO přidat někde brát čas
     }
+
+    public LocalDateTime getCurrentDate() { return LocalDateTime.now(); }
+
+    public void getDateDifference()
+    {
+        Duration duration = Duration.between(startDate, getCurrentDate());
+
+        System.out.println("timeElapsed: " + duration);
+    }
+
 }

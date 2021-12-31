@@ -14,12 +14,17 @@ public class Project extends TimeManager {
         this.description = name;
         this.processes = processes;
         this.deadline = estimatedTime;
+
+        startDate = getCurrentDate();
     }
 
     public Project(String name, float estimatedTime)
     {
         this.description = name;
         this.deadline = estimatedTime;
+
+        startDate = getCurrentDate();
+
     }
 
     //METODY
