@@ -1,4 +1,4 @@
-package cz.uhk.todolist.services;
+package cz.uhk.todolist.model;
 
 import cz.uhk.todolist.model.Project;
 import org.springframework.data.mongodb.repository.MongoRepository;

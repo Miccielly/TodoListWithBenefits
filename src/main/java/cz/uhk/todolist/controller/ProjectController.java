@@ -2,7 +2,7 @@ package cz.uhk.todolist.controller;
 
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.Project;
-import cz.uhk.todolist.services.ProjectBank;
+import cz.uhk.todolist.model.ProjectBank;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
