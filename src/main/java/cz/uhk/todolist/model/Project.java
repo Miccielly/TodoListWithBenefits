@@ -1,9 +1,14 @@
 package cz.uhk.todolist.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Project extends TimeManager {
+
+    @Id
+    private String id;
 
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
     private float deadLineSum; //suma času úloh

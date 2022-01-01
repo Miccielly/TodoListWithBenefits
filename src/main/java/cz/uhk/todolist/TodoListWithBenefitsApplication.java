@@ -14,5 +14,4 @@ public class TodoListWithBenefitsApplication {
         SpringApplication.run(TodoListWithBenefitsApplication.class, args);
     }
 
-
 }

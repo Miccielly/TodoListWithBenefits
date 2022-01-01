@@ -1,11 +1,18 @@
 package cz.uhk.todolist.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class Process extends TimeManager {
+
+    @Id
+    private String id;
+
+    private String parentId;
     //ÚLOHY
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
     private float deadlinesum; //suma času úloh
@@ -51,19 +58,6 @@ public class Process extends TimeManager {
     {
         updateCurrentTime();
         return (getCurrentTime()- getDeadline());
-    }
-    public void sortTasksOld()
-    {
-        Collections.sort(tasks, new Comparator<Task>() {
-            @Override
-            public int compare(Task task1, Task task2) {
-                if(task1.getPreviousTaskId() > task2.getPreviousTaskId())
-                    return 1;
-                if(task1.getPreviousTaskId() < task2.getPreviousTaskId())
-                    return -1;
-                return 0;
-            }
-        });
     }
 
     public void sortTasks()

@@ -1,13 +1,19 @@
 package cz.uhk.todolist.model;
 
+import org.springframework.data.annotation.Id;
+
 public class Task extends TimeManager {
 
     private float timeReserve = 0;
 
     //PRO ZAŘAZENÍ DO POSLOUPNOSTI TASKŮ
-    private final int id;
-    protected int previousTaskId;
-    protected int nextTaskId;
+    @Id
+    private String id;
+
+    private String parentId;
+
+    protected String previousTaskId;
+    protected String nextTaskId;
     protected boolean onlyNode = false;
 
     //VÝPOČET KRITICKÉ CESTY
@@ -15,16 +21,15 @@ public class Task extends TimeManager {
     private float criticalCost = 9999999;
 
     //CONSTRUCTORY
-    public Task(String description, float estimatedTime, int id, int previousTaskId, int nextTaskId) {
+    public Task(String description, float estimatedTime,  String previousTaskId, String nextTaskId) {
         this.description = description;
         this.deadline = estimatedTime;
-        this.id = id;
         this.previousTaskId = previousTaskId;
         this.nextTaskId = nextTaskId;
     }
 
-    public Task(String description, int id, int previous, int next) {
-        this.id = id;
+    public Task(String description, String previous, String next) {
+
         this.description = description;
         this.previousTaskId = previous;
         this.nextTaskId = next;
@@ -34,12 +39,10 @@ public class Task extends TimeManager {
     {
         if(startNode)
         {
-            this.id = 0;
             this.description = "Start Node";
         }
         else
         {
-            this.id = 9999;
             this.description = "End Node";
         }
         onlyNode = true;
@@ -47,23 +50,23 @@ public class Task extends TimeManager {
 
     //METODY
 
-    public int getPreviousTaskId() {
+    public String getPreviousTaskId() {
         return previousTaskId;
     }
 
-    public void setPreviousTaskId(int previousTaskId) {
+    public void setPreviousTaskId(String previousTaskId) {
         this.previousTaskId = previousTaskId;
     }
 
-    public int getNextTaskId() {
+    public String getNextTaskId() {
         return nextTaskId;
     }
 
-    public int getTaskId() { return id; }
+    public String getTaskId() { return id; }
 
     public boolean isOnlyNode() { return onlyNode; }
 
-    public void setNextTaskId(int nextTaskId) {
+    public void setNextTaskId(String nextTaskId) {
         this.nextTaskId = nextTaskId;
     }
 

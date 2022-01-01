@@ -2,8 +2,7 @@ package cz.uhk.todolist.controller;
 
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.Project;
-import cz.uhk.todolist.model.Task;
-import cz.uhk.todolist.services.ProjectService;
+import cz.uhk.todolist.services.ProjectBank;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @Controller
 public class ProjectController {
 
-    private ProjectService ps;
+    private ProjectBank projectBank;
 
 
     @GetMapping({"/"})
@@ -29,15 +28,18 @@ public class ProjectController {
     public ModelAndView zobraz()
     {
         ModelAndView model = new ModelAndView("project");
-        ps = new ProjectService();
+        projectBank = new ProjectBank();
 
-        Project project = ps.getProjects().get(0);
-        List<Process> processes = project.getProcesses();
-        Process process = processes.get(0);
+        if(projectBank.getProjects().size() > 0) {
+            Project project = projectBank.getProjects().get(0);
+            List<Process> processes = project.getProcesses();
+            Process process = processes.get(0);
 
-        model.addObject("process", process);
-        model.addObject("project", project);
-
+            model.addObject("process", process);
+            model.addObject("project", project);
+        }
+        else
+        System.out.println("Žádné projekty na vykreslení!");
         return model;
     }
 
