@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
@@ -23,14 +24,14 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
         // fetch all customers
         System.out.println("Projects found with findAll():");
         System.out.println("-------------------------------");
-        for (Project project : projectRepository.findAll()) {
-            System.out.println(project);
-        }
+        //for (Project project : projectRepository.findAll()) {
+          //  System.out.println(project);
+        //}
         System.out.println();
 
         // fetch an individual customer
         System.out.println("Project found with findByFirstName('Alice'):");
         System.out.println("--------------------------------");
-        System.out.println(projectRepository.findByDescription("Projekt02"));
+        //System.out.println(projectRepository.findByDescription("Projekt02"));
     }
 }
