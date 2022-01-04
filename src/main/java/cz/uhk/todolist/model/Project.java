@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document
+@Document(collection = "Projects")
 public class Project extends TimeManager {
 
     @Id
@@ -24,7 +24,7 @@ public class Project extends TimeManager {
         this.processes = processes;
         this.deadline = estimatedTime;
 
-        startDate = getCurrentDate();
+        //startDate = getCurrentDate();
     }
 
     public Project(String name, float estimatedTime)
@@ -32,7 +32,7 @@ public class Project extends TimeManager {
         this.description = name;
         this.deadline = estimatedTime;
 
-        startDate = getCurrentDate();
+        //startDate = getCurrentDate();
 
     }
 

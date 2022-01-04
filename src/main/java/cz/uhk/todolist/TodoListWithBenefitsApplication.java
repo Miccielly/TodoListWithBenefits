@@ -1,10 +1,13 @@
 package cz.uhk.todolist;
 
+import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.services.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Optional;
 
 @SpringBootApplication
 public class TodoListWithBenefitsApplication implements CommandLineRunner {
@@ -31,9 +34,10 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
         System.out.println("Project found with findByFirstName('Alice'):");
         System.out.println("--------------------------------");
         //System.out.println(repository.findByDescription("Projekt02"));
-        //
-        System.out.println("FindByID: " + projectRepository.findById("61cf3447d9859f15988b5da6"));
+        Optional<Project> project = projectRepository.findById("61cf3447d9859f15988b5da6");
+        System.out.println("FindByID: " + project);
         System.out.println("FindAll: " + projectRepository.findAll());
+        projectRepository.save(new Project("ProjectTest", 35f));
 
     }
 }

@@ -14,7 +14,8 @@ public class TimeManager {
     protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
 
     //Dates
-    protected LocalDateTime startDate;
+    //protected LocalDateTime startDate;
+    protected String startDate;
     //METODY
     public String getDescription() {
         return description;
@@ -41,9 +42,9 @@ public class TimeManager {
 
     public void getDateDifference()
     {
-        Duration duration = Duration.between(startDate, getCurrentDate());
+        //Duration duration = Duration.between(startDate, getCurrentDate());
 
-        System.out.println("timeElapsed: " + duration);
+        //System.out.println("timeElapsed: " + duration);
     }
 
 }
