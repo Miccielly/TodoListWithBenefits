@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
     @Autowired
-    private ProjectRepository repository;
+    private ProjectRepository projectRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TodoListWithBenefitsApplication.class, args);
@@ -30,6 +30,10 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
         // fetch an individual customer
         System.out.println("Project found with findByFirstName('Alice'):");
         System.out.println("--------------------------------");
-        //System.out.println(projectRepository.findByDescription("Projekt02"));
+        //System.out.println(repository.findByDescription("Projekt02"));
+        //
+        System.out.println("FindByID: " + projectRepository.findById("61cf3447d9859f15988b5da6"));
+        System.out.println("FindAll: " + projectRepository.findAll());
+
     }
 }
