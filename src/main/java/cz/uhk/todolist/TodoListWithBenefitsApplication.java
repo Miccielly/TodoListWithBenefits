@@ -1,18 +1,16 @@
 package cz.uhk.todolist;
 
-import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.services.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
 public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectRepository repository;
 
     public static void main(String[] args) {
         SpringApplication.run(TodoListWithBenefitsApplication.class, args);

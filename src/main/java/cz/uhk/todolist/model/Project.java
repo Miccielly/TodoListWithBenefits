@@ -1,10 +1,14 @@
 package cz.uhk.todolist.model;
 
+import cz.uhk.todolist.model.Process;
+import cz.uhk.todolist.model.TimeManager;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "Projects")
 public class Project extends TimeManager {
 
     @Id

@@ -1,9 +1,5 @@
 package cz.uhk.todolist.model;
 
-import cz.uhk.todolist.model.Project;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
