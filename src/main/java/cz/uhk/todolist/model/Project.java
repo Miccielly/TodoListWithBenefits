@@ -3,6 +3,7 @@ package cz.uhk.todolist.model;
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.TimeManager;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class Project extends TimeManager {
     @Id
     private String id;
 
+    private List<String> processesIds = new ArrayList<>();
+    @Transient
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
     private float deadLineSum; //suma času úloh
 

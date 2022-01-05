@@ -1,7 +1,9 @@
 package cz.uhk.todolist.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "Tasks")
 public class Task extends TimeManager {
 
     private float timeReserve = 0;
@@ -11,6 +13,7 @@ public class Task extends TimeManager {
     private String id;
 
     private String parentId;
+    private String processId;
 
     protected String previousTaskId;
     protected String nextTaskId;
@@ -21,9 +24,9 @@ public class Task extends TimeManager {
     private float criticalCost = 9999999;
 
     //CONSTRUCTORY
-    public Task(String description, float estimatedTime,  String previousTaskId, String nextTaskId) {
+    public Task(String description, float deadline,  String previousTaskId, String nextTaskId, String processId) {
         this.description = description;
-        this.deadline = estimatedTime;
+        this.deadline = deadline;
         this.previousTaskId = previousTaskId;
         this.nextTaskId = nextTaskId;
     }
@@ -35,6 +38,11 @@ public class Task extends TimeManager {
         this.nextTaskId = next;
     }
 
+    public Task()
+    {
+
+
+    }
     public Task(boolean startNode)
     {
         if(startNode)

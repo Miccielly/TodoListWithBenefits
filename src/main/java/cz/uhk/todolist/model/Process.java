@@ -1,12 +1,15 @@
 package cz.uhk.todolist.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+@Document(collection = "Processes")
 public class Process extends TimeManager {
 
     @Id
@@ -14,13 +17,16 @@ public class Process extends TimeManager {
 
     private String parentId;
     //ÚLOHY
+
+    private List<String> tasksId = new ArrayList<>();
+    @Transient
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
     private float deadlinesum; //suma času úloh
 
     //CONSTRUCTORY
-    public Process(String description, float estimatedTime) {
+    public Process(String description, float deadline) {
         this.description = description;
-        this.deadline = estimatedTime;
+        this.deadline = deadline;
     }
 
     //METODY
