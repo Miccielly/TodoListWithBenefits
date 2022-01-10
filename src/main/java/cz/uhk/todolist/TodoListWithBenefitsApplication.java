@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,31 +35,26 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception
     {
-        Optional<Task> task = Optional.ofNullable(taskRepository.findByProcessId("61cf3498d9859f15988b5da7"));
-        System.out.println(task.get().getDescription());
-
-        Optional<Process> process = processRepository.findById("61cf3498d9859f15988b5da7");
-        //Project pr = project.get();
-        System.out.println("Process: " + process.get().getDescription());
-        //System.out.println("FindByProcessId: " + taskRepository.findByProcessId("61cf3498d9859f15988b5da7"));
-
+        SaveTest();
 
     }
 
     private void SaveTest()
     {
+        Project p = new Project("Day",1440f);
+        projectRepository.save(p);
 
-        List<Process> processes = new ArrayList<>();
+        Optional<Project> parentProject = Optional.ofNullable(projectRepository.findByDescription("Day"));
+        Process process = new Process("Morning Routine", 400f, parentProject.get().getId() );
+        processRepository.save(process);
 
-        Process process1 = new Process("Process1", 5);
-        Process process2 = new Process("Process2", 7);
-
-        processes.add(process1);
-        processes.add(process2);
-
-        Project p = new Project("Projekt03", processes, 15f);
-
-        //projectRepository.save(p);
+/*
+        Task task0 = new Task("Spát", 360);
+        Task task1 = new Task("Vstát", 30);
+        Task process3 = new Task("Instagram", 15);
+        Task process4 = new Task("Záchod", 7);
+        Task process5 = new Task("Koš", 5);
+*/
 
     }
 }

@@ -18,15 +18,19 @@ public class Process extends TimeManager {
     private String parentId;
     //ÚLOHY
 
-    private List<String> tasksId = new ArrayList<>();
+    // private List<String> tasksId = new ArrayList<>();
     @Transient
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
     private float deadlinesum; //suma času úloh
 
     //CONSTRUCTORY
-    public Process(String description, float deadline) {
+    public Process(String description, float deadline, String parentId) {
         this.description = description;
         this.deadline = deadline;
+        this.parentId = parentId;
+
+        tasks.add(new Task(true));
+        tasks.add(new Task(false));
     }
 
     //METODY

@@ -15,7 +15,7 @@ public class Project extends TimeManager {
     @Id
     private String id;
 
-    private List<String> processesIds = new ArrayList<>();
+    //private List<String> processesIds = new ArrayList<>();
     @Transient
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
     private float deadLineSum; //suma času úloh
@@ -97,5 +97,10 @@ public class Project extends TimeManager {
     {
         updateCurrentTime();
         return (getCurrentTime()- getDeadline());
+    }
+
+    public String getId()
+    {
+        return id;
     }
 }
