@@ -4,5 +4,5 @@ import cz.uhk.todolist.model.Task;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface TaskRepository extends MongoRepository<Task, String> {
-    public Task findByProcessId(String processId);
+    public Task findByParentId(String parentId);
 }

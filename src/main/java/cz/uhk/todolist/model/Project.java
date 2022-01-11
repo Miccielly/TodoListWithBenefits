@@ -18,7 +18,7 @@ public class Project extends TimeManager {
     //private List<String> processesIds = new ArrayList<>();
     @Transient
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
-    private float deadLineSum; //suma času úloh
+    private float deadLineSum = 0; //suma času úloh
 
     //KONSTRUKTORY
     public Project(String name, List<Process> processes, float estimatedTime)

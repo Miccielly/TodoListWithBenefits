@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.TaskScheduler;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
@@ -33,28 +34,35 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception
-    {
+    public void run(String... args) throws Exception {
         SaveTest();
 
     }
 
-    private void SaveTest()
-    {
-        Project p = new Project("Day",1440f);
+    private void SaveTest() {
+
+        Project p = new Project("Day", 1440f);
         projectRepository.save(p);
 
         Optional<Project> parentProject = Optional.ofNullable(projectRepository.findByDescription("Day"));
-        Process process = new Process("Morning Routine", 400f, parentProject.get().getId() );
+        Process process = new Process("Morning Routine", 400f, parentProject.get().getId());
         processRepository.save(process);
 
-/*
-        Task task0 = new Task("Spát", 360);
-        Task task1 = new Task("Vstát", 30);
-        Task process3 = new Task("Instagram", 15);
-        Task process4 = new Task("Záchod", 7);
-        Task process5 = new Task("Koš", 5);
-*/
+        String processId = processRepository.findByDescription(process.getDescription()).getId();
+
+        Task[] tasks = new Task[7];
+
+        tasks[0] = new Task(true, processId);
+        tasks[1] = new Task("Spát", 360, processId);
+        tasks[2] = new Task("Vstát", 30, processId);
+        tasks[3] = new Task("Instagram", 15, processId);
+        tasks[4] = new Task("Záchod", 7, processId);
+        tasks[5] = new Task("Koš", 5, processId);
+        tasks[6] = new Task(false, processId);
+
+        for (int i = 0; i < tasks.length; i++) {
+            taskRepository.save(tasks[i]);
+        }
 
     }
 }

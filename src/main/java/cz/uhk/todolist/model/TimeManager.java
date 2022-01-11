@@ -10,12 +10,12 @@ public class TimeManager {
     protected String description;
 
     //ČAS
-    protected float deadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
-    protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+    protected float deadline = 0; //odhadovaný čas pro splnění všech úloh v tomto procesu
+    protected float currentTime = 0;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
 
     //Dates
     //protected LocalDateTime startDate;
-    protected String startDate;
+    protected String startDate = "";
     //METODY
     public String getDescription() {
         return description;

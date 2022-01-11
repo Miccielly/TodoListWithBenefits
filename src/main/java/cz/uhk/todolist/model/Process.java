@@ -21,7 +21,7 @@ public class Process extends TimeManager {
     // private List<String> tasksId = new ArrayList<>();
     @Transient
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
-    private float deadlinesum; //suma času úloh
+    private float deadlinesum = 0; //suma času úloh
 
     //CONSTRUCTORY
     public Process(String description, float deadline, String parentId) {
@@ -29,8 +29,8 @@ public class Process extends TimeManager {
         this.deadline = deadline;
         this.parentId = parentId;
 
-        tasks.add(new Task(true));
-        tasks.add(new Task(false));
+        //tasks.add(new Task(true));
+        //tasks.add(new Task(false));
     }
 
     //METODY
@@ -56,19 +56,7 @@ public class Process extends TimeManager {
         deadlinesum = et;
     }
 
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
-    }
 
-    public float getDeadlinesum() {
-        return deadlinesum;
-    }
-
-    public float getTimeDifference()
-    {
-        updateCurrentTime();
-        return (getCurrentTime()- getDeadline());
-    }
 
     public void sortTasks()
     {
@@ -166,5 +154,24 @@ public class Process extends TimeManager {
     public float getDeadlineSum()
     {
         return deadlinesum;
+    }
+
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
+    }
+
+    public float getDeadlinesum() {
+        return deadlinesum;
+    }
+
+    public float getTimeDifference()
+    {
+        updateCurrentTime();
+        return (getCurrentTime()- getDeadline());
+    }
+
+    public String getId()
+    {
+        return id;
     }
 }

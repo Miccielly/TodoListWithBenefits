@@ -13,29 +13,21 @@ public class Task extends TimeManager {
     private String id;
 
     private String parentId;
-    private String processId;
 
-    protected String previousTaskId;
-    protected String nextTaskId;
+    protected String previousTaskId = "";
+    protected String nextTaskId = "";
     protected boolean onlyNode = false;
 
     //VÝPOČET KRITICKÉ CESTY
     private float cost = 0;
     private float criticalCost = 9999999;
 
-    //CONSTRUCTORY
-    public Task(String description, float deadline,  String previousTaskId, String nextTaskId, String processId) {
+    //CONSTRUCTOR
+
+    public Task(String description, float deadline, String parentId) {
         this.description = description;
         this.deadline = deadline;
-        this.previousTaskId = previousTaskId;
-        this.nextTaskId = nextTaskId;
-    }
-
-    public Task(String description, String previous, String next) {
-
-        this.description = description;
-        this.previousTaskId = previous;
-        this.nextTaskId = next;
+        this.parentId = parentId;
     }
 
     public Task()
@@ -43,8 +35,9 @@ public class Task extends TimeManager {
 
 
     }
-    public Task(boolean startNode)
+    public Task(boolean startNode, String parentId)
     {
+        this.parentId = parentId;
         if(startNode)
         {
             this.description = "Start Node";
@@ -70,17 +63,14 @@ public class Task extends TimeManager {
         return nextTaskId;
     }
 
-    public String getTaskId() { return id; }
-
-    public boolean isOnlyNode() { return onlyNode; }
-
     public void setNextTaskId(String nextTaskId) {
         this.nextTaskId = nextTaskId;
     }
 
-    public void setTimeReserve(float timeReserve) { this.timeReserve = timeReserve; }
 
-    public float getTimeReserve() { return timeReserve; }
+    public String getTaskId() { return id; }
+
+    public boolean isOnlyNode() { return onlyNode; }
 
     //CPM
     public float getCost() {
@@ -96,5 +86,9 @@ public class Task extends TimeManager {
     public void setCriticalCost(float criticalCost) {
         this.criticalCost = criticalCost;
     }
+
+    public void setTimeReserve(float timeReserve) { this.timeReserve = timeReserve; }
+
+    public float getTimeReserve() { return timeReserve; }
 
 }
