@@ -46,8 +46,8 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
         Process process = processRepository.findById(tasks[0].getParentId()).get();
         process.addTasks(tasks);
-        process.sortTasks();
-        //process.calculateCriticalPath();
+        //process.sortTasks();
+        process.calculateCriticalPath();
 
     }
     private void SaveTest() {
