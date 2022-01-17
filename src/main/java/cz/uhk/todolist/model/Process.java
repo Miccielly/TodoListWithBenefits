@@ -4,10 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Document(collection = "Processes")
 public class Process extends TimeManager {
@@ -66,12 +63,14 @@ public class Process extends TimeManager {
         //najití start nodu
         for (int i = 0; i < tasks.size(); i++)
         {
-            if(tasks.get(i).isOnlyNode() && tasks.get(i).getDescription() == "Start Node")
+            System.out.println(i + " description: " + tasks.get(i).getDescription());
+            if(tasks.get(i).isOnlyNode() && tasks.get(i).getDescription().equals("Start Node"))
             {
                 sorted.add(tasks.get(i));   //přidání start node
                 System.out.println(tasks.get(i).getDescription());
             }
-            else if ( !endFound && tasks.get(i).isOnlyNode() && tasks.get(i).getDescription() == "End Node") {
+            else if ( !endFound && tasks.get(i).isOnlyNode() && tasks.get(i).getDescription().equals("End Node"))
+            {
                 endNodeIndex = i;
                 endFound = true;
             }
@@ -81,7 +80,7 @@ public class Process extends TimeManager {
         {
             for (int j = 0; j < tasks.size(); j++)
             {
-                if(!tasks.get(j).isOnlyNode() && sorted.get(i).getTaskId() == tasks.get(j).getPreviousTaskId())
+                if(!tasks.get(j).isOnlyNode() && sorted.get(i).getTaskId().equals(tasks.get(j).getPreviousTaskId()))
                 {
                     sorted.add(tasks.get(j));   //přidání tasků, které navazují na již seřazené tasky
                 }
@@ -99,8 +98,8 @@ public class Process extends TimeManager {
         //Funguje pouze na seřazeném listu tasků, od start node do end node
         //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
         //co má být výstup? -> taskům vypočtena hodnota časové rezervy
-        sortTasks();
-        System.out.println("CPM Calculation");
+        //sortTasks();
+        System.out.println("CPM Calculation " + tasks.size() );
 
         //procházení od startu do konce
         for(int i = 0; i < tasks.size(); i++)
@@ -112,7 +111,7 @@ public class Process extends TimeManager {
                         && (tasks.get(j).getPreviousTaskId() == tasks.get(i).getTaskId()
                         || tasks.get(i).getNextTaskId() == tasks.get(j).getTaskId()))
                 {
-                    //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
+                    System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
                     float newCost = tasks.get(i).getDeadline() + tasks.get(i).getCost();
                     if(newCost > tasks.get(j).getCost())
@@ -174,4 +173,11 @@ public class Process extends TimeManager {
     {
         return id;
     }
+
+    public void addTasks (ArrayList tasks) { this.tasks = tasks; }
+
+    public void addTasks (Task[] tasks) { this.tasks = Arrays.asList(tasks);
+        System.out.println("Add Func taskSize: " + this.tasks.size());
+    }
+
 }

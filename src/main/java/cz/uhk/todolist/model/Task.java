@@ -91,4 +91,6 @@ public class Task extends TimeManager {
 
     public float getTimeReserve() { return timeReserve; }
 
+    public String getParentId() { return parentId; }
+
 }

@@ -35,10 +35,21 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        SaveTest();
 
+        ShowTest();
     }
 
+    private void ShowTest()
+    {
+        Task[] tasks = new Task[7];
+        tasks = taskRepository.findAll().toArray(new Task[0]);
+
+        Process process = processRepository.findById(tasks[0].getParentId()).get();
+        process.addTasks(tasks);
+        process.sortTasks();
+        //process.calculateCriticalPath();
+
+    }
     private void SaveTest() {
 
         Project p = new Project("Day", 1440f);
@@ -63,6 +74,7 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
         for (int i = 0; i < tasks.length; i++) {
             taskRepository.save(tasks[i]);
         }
-
     }
+
+
 }
