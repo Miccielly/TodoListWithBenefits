@@ -178,7 +178,7 @@ public class Process extends TimeManager {
 
     public String getParentId() { return parentId; }
 
-    public void addTasks (ArrayList tasks) { this.tasks = tasks; }
+    public void addTasks (List<Task> tasks) { this.tasks = tasks; }
 
     public void addTasks (Task[] tasks) { this.tasks = Arrays.asList(tasks); }
 

@@ -105,8 +105,4 @@ public class Project extends TimeManager {
         return id;
     }
 
-    public int getTest()
-    {
-        return 3;
-    }
 }
