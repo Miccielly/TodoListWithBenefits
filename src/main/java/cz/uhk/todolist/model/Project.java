@@ -20,6 +20,7 @@ public class Project extends TimeManager {
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
     private float deadLineSum = 0; //suma času úloh
 
+
     //KONSTRUKTORY
     public Project(String name, List<Process> processes, float estimatedTime)
     {
@@ -102,5 +103,10 @@ public class Project extends TimeManager {
     public String getId()
     {
         return id;
+    }
+
+    public int getTest()
+    {
+        return 3;
     }
 }

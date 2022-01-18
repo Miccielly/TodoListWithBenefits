@@ -36,7 +36,7 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        ShowTest();
+        //ShowTest();
     }
 
     private void ShowTest()
@@ -46,9 +46,11 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
         Process process = processRepository.findById(tasks[0].getParentId()).get();
         process.addTasks(tasks);
-        //process.sortTasks();
-        process.calculateCriticalPath();
 
+        Project project = projectRepository.findById(process.getParentId()).get();
+        project.addProcess(process);
+
+        process.calculateCriticalPath();
     }
     private void SaveTest() {
 

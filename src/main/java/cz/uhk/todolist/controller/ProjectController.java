@@ -1,29 +1,28 @@
 package cz.uhk.todolist.controller;
 
-import cz.uhk.todolist.model.Process;
-import cz.uhk.todolist.model.Project;
-import cz.uhk.todolist.model.ProjectBank;
+import cz.uhk.todolist.model.ProjectStore;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.websocket.server.PathParam;
 
 
 @Controller
 public class ProjectController {
 
-    private ProjectBank projectBank;
+    private ProjectStore projectBank;
 
-
-    @GetMapping({"/"})
-    public String Hello(@RequestParam(value = "name",defaultValue = "World", required = true) String name, Model model)
+    @GetMapping({"/project/{id}"})
+    private ModelAndView showProject(@PathVariable String id)
     {
-        model.addAttribute("name", name);
-        return "index";
+        ModelAndView model = new ModelAndView("test");
+        System.out.println("project id: " + id);
+        return  model;
     }
 
+/*
     @GetMapping({"/process.do"})
     public ModelAndView zobraz()
     {
@@ -42,6 +41,6 @@ public class ProjectController {
         System.out.println("Žádné projekty na vykreslení!");
         return model;
     }
-
+*/
 
 }

@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>TodoList</title>
 </head>
 <body>
-<p>
-    Hey there! <th:block th:text="${name}">message</th:block>
-<table border="1">
+<h1>Todo List With Benefits</h1>
+<h2>Zvol si svůj projekt</h2>
+<p><table border="1">
     <tr>
-        <th>Task</th>
-        <th>Estimated Time</th>
-        <th>Current time</th>
-        <th>Show relations</th>
+        <th>Jméno projektu</th>
+        <th>Termín dokončení</th>
     </tr>
-    <tr>
-        <td><th:block th:text="${task}">description</th:block></td>
-
-    </tr>
-    <tr>
-        <td>16</td>
-
+    <tr th:each="project: ${projectStore.getProjects()}">
+        <td th:text="${project.getDescription()}"></td>
+        <td th:text="${project.getDeadline()}"></td>
+      <td>
+          <form th:action="@{/project/{id}(id=${project.getId()})}">
+                <input type="submit" value="Otevřít" />
+          </form>
+      </td>
     </tr>
 </table>
 </p>

@@ -112,7 +112,7 @@ public class Process extends TimeManager {
                         || tasks.get(i).getNextTaskId().equals(tasks.get(j).getTaskId()))
                 )
                 {
-                    System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
+                    //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
                     float newCost = tasks.get(i).getDeadline() + tasks.get(i).getCost();
                     if(newCost > tasks.get(j).getCost())
@@ -137,7 +137,7 @@ public class Process extends TimeManager {
                         || tasks.get(i).getPreviousTaskId().equals( tasks.get(j).getTaskId()))
                 )
                 {
-                    System.out.println(tasks.get(i).getCriticalCost() + " - " + tasks.get(j).getDeadline());
+                    //System.out.println(tasks.get(i).getCriticalCost() + " - " + tasks.get(j).getDeadline());
 
                     float newCriticalCost = tasks.get(i).getCriticalCost()-tasks.get(j).getDeadline();
                     if(newCriticalCost < tasks.get(j).getCriticalCost())
@@ -176,8 +176,11 @@ public class Process extends TimeManager {
         return id;
     }
 
+    public String getParentId() { return parentId; }
+
     public void addTasks (ArrayList tasks) { this.tasks = tasks; }
 
     public void addTasks (Task[] tasks) { this.tasks = Arrays.asList(tasks); }
+
 
 }
