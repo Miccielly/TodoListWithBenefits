@@ -13,10 +13,10 @@
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
 <!--<p th:text="${project.getDateDifference()}"></p>-->
 
-<!--<h1 th:if="${ processStore.getProcesses().size() == 0}"> Zatím neobsahuje žádné procesy!</h1>-->
+<!--<h1 th:if="${ processStore.getProcesses().size() == 0}"> Neobsahuje žádné procesy!</h1>-->
 
 <!--Wrapnout eache do if divu jelikož each má přednost před ifem na stejném řádku-->
-<!--<div th:unless="${#lists.isEmpty(processStore.getProcesses())}">-->
+<span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
 <th:block  th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
     <h3>Časová náročnost:</h3>
@@ -41,6 +41,6 @@
     </tr>
 </table>
 </th:block>
-</div>
+</span>
 </body>
 </html>

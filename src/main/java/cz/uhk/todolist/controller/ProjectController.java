@@ -34,10 +34,9 @@ public class ProjectController {
         Project project = projectRepository.findById(id).get();
         System.out.println("project id: " + id);
 
-        //TODO v thymeleafu je potřeba ošetřit když je list s procesy prázdný, aby se nesnažili zobrazit
         if(project != null) {
             ProcessStore processStore = new ProcessStore(processRepository.findByParentId(project.getId()));
-            System.out.println("processStore.getProcesses == null " + (processStore.getProcesses() == null));
+            //System.out.println("processStore.getProcesses == null " + (processStore.getProcesses() == null));
             System.out.println(processStore.getProcesses().size());
 
             if(processStore != null && processStore.getProcesses().size() > 0)
