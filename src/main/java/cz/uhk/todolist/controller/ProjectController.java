@@ -1,12 +1,11 @@
 package cz.uhk.todolist.controller;
 
-import cz.uhk.todolist.model.Project;
-import cz.uhk.todolist.model.Process;
-import cz.uhk.todolist.model.ProjectStore;
-import cz.uhk.todolist.model.Task;
+import cz.uhk.todolist.model.*;
 import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.ProjectRepository;
 import cz.uhk.todolist.services.TaskRepository;
+import cz.uhk.todolist.utils.ProcessStore;
+import cz.uhk.todolist.utils.ProjectStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +34,28 @@ public class ProjectController {
         Project project = projectRepository.findById(id).get();
         System.out.println("project id: " + id);
 
+        //TODO v thymeleafu je potřeba ošetřit když je list s procesy prázdný, aby se nesnažili zobrazit
         if(project != null) {
-            Process process = processRepository.findByParentId(project.getId());
+            ProcessStore processStore = new ProcessStore(processRepository.findByParentId(project.getId()));
+            System.out.println("processStore.getProcesses == null " + (processStore.getProcesses() == null));
+            System.out.println(processStore.getProcesses().size());
 
-            if(process != null)
+            if(processStore != null && processStore.getProcesses().size() > 0)
             {
-                List<Task> tasks = taskRepository.findByParentId(process.getId());
-                process.addTasks(tasks);
-                process.calculateCriticalPath();
-                model.addObject(process);
-            }
+                System.out.println("processesSize: " + processStore.getProcesses().size());
 
+                for(int i = 0; i < processStore.getProcesses().size(); i++)
+                {
+                    List<Task> tasks = taskRepository.findByParentId(processStore.getProcesses().get(i).getId());
+                    processStore.getProcesses().get(i).addTasks(tasks);
+                    processStore.getProcesses().get(i).calculateCriticalPath();
+                }
+                model.addObject(processStore);
+            }
+            else
+            {
+                System.out.println("Nemá procesy, nebo chybí projekt!");
+            }
             model.addObject(project);
 
         }

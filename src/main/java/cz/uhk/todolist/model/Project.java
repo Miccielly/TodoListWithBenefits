@@ -22,19 +22,19 @@ public class Project extends TimeManager {
 
 
     //KONSTRUKTORY
-    public Project(String name, List<Process> processes, float estimatedTime)
+    public Project(String name, List<Process> processes, float deadline)
     {
         this.description = name;
         this.processes = processes;
-        this.deadline = estimatedTime;
+        this.deadline = deadline;
 
         //startDate = getCurrentDate();
     }
 
-    public Project(String name, float estimatedTime)
+    public Project(String name, float deadline)
     {
         this.description = name;
-        this.deadline = estimatedTime;
+        this.deadline = deadline;
 
         //startDate = getCurrentDate();
 
@@ -84,10 +84,6 @@ public class Project extends TimeManager {
 
     public void setName(String name) {
         this.description = name;
-    }
-
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
     }
 
     public float getDeadLineSum() {

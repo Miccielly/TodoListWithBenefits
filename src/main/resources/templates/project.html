@@ -1,22 +1,32 @@
 <!DOCTYPE html>
-<head>
+<head xmlns:th="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
     <title>Project</title>
 </head>
 <body>
 <h1 th:text="${project.getDescription()}"></h1>
+
+
+<form th:action="@{/create}">
+    <input type="submit" value="Přidat proces!" />
+</form>
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
 <!--<p th:text="${project.getDateDifference()}"></p>-->
 
-<h1 th:if="${process != null}" th:text="${process.getDescription()}"></h1>
-<h1 th:if="${process == null}"> Neobsahuje žádné procesy!</h1>
+<!--<h1 th:if="${ processStore.getProcesses().size() == 0}"> Zatím neobsahuje žádné procesy!</h1>-->
 
-<h3 th:if="${process != null}">Časová náročnost:</h3>
-<h3 th:if="${process != null}" th:text="${process.getDeadlineSum()}"></h3>
+<!--Wrapnout eache do if divu jelikož each má přednost před ifem na stejném řádku-->
+<!--<div th:unless="${#lists.isEmpty(processStore.getProcesses())}">-->
+<th:block  th:each="process: ${processStore.getProcesses()}">
+    <h1 th:text="${process.getDescription()}"></h1>
+    <h3>Časová náročnost:</h3>
+    <h3 th:text="${process.getDeadlineSum()}"></h3>
 
-<!--<p th:each="process: ${project.getProcesses()} ":>-->
-<p th:if="${process != null && process.getTasks().size() > 0}">
-<table th:if="${process != null && process.getTasks().size() > 0}"  border="1">
+    <form th:action="@{/create}">
+        <input type="submit" value="Přidat úlohu!" />
+    </form>
+
+<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}"  border="1">
     <tr>
         <th>Task</th>
         <th>V jaký čas od startu začít</th>
@@ -30,6 +40,7 @@
     <td th:text="${task.getTimeReserve()}"></td>
     </tr>
 </table>
-</p>
+</th:block>
+</div>
 </body>
 </html>

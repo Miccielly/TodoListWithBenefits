@@ -6,11 +6,14 @@
 <body>
 <h1>Přidání projektu</h1>
 <p>
-    <form action= "#" th:action="@{/createProject}" th:object="${project}" method="post">
-    Project name:
-<!--    <input type="text" id="projectname" th:field="*{setDescription()}"><br><br>-->
+    <form action= "#" th:action="@{/create}" th:object="${project}" method="post">
+        <label for="fname">Project name:</label><br>
+        <input type="text" th:field="*{description}" id="fname" name="fname"><br>
+        <label for="lname">Deadline:</label><br>
+        <input type="text" th:field="*{deadline}" id="lname" name="lname"><br>
     <button type="submit">Add project</button>
     </form>
+
 </p>
 </body>
 </html>

@@ -29,6 +29,8 @@ public class TimeManager {
         return deadline;
     }
 
+    public float setDeadline() { return deadline; }
+
     public float getCurrentTime() {
         return currentTime;
     }

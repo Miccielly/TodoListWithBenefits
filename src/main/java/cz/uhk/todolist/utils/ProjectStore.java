@@ -1,4 +1,6 @@
-package cz.uhk.todolist.model;
+package cz.uhk.todolist.utils;
+
+import cz.uhk.todolist.model.Project;
 
 import java.util.ArrayList;
 import java.util.List;

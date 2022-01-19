@@ -36,7 +36,7 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        //ShowTest();
+
     }
 
     private void ShowTest()
@@ -78,5 +78,23 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
         }
     }
 
+    private void addProcess()
+    {
+        Project project = projectRepository.findByDescription("Day");
+        Process lunch = new Process("Polévka", 60, project.getId());
+        processRepository.save(lunch);
+
+        Process p = processRepository.findByDescription(lunch.getDescription());
+
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(new Task("Nakrájení zeleniny", 10, p.getId()));
+        tasks.add(new Task("Vaření zeleniny", 20, p.getId()));
+        tasks.add(new Task("Kořenění", 1, p.getId()));
+        tasks.add(new Task("Jedení", 15, p.getId()));
+
+        for (Task t:tasks) {
+            taskRepository.save(t);
+        }
+    }
 
 }
