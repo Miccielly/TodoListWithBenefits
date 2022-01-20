@@ -44,6 +44,10 @@ public class Process extends TimeManager {
 
     public void computeEstimatedTimeSum()
     {
+        if(!(tasks.size() > 0)) {
+            deadlinesum = 0;
+            return;
+        }
         float et = 0;
         for(int i = 0; i < tasks.size()-1; i++)
         {
@@ -104,6 +108,10 @@ public class Process extends TimeManager {
         sortTasks();
         System.out.println("CPM Calculation " + tasks.size() );
 
+        if(!(tasks.size() > 0))
+        {
+            return;
+        }
         //procházení od startu do konce
         for(int i = 0; i < tasks.size(); i++)
         {

@@ -8,7 +8,7 @@
 
 
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
-    <input type="submit" value="Přidat proces!" />
+    <input type="submit" value="Přidat proces!"/>
 </form>
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
 <!--<p th:text="${project.getDateDifference()}"></p>-->
@@ -17,16 +17,16 @@
 
 <!--Wrapnout eache do if divu jelikož each má přednost před ifem na stejném řádku-->
 <span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
-<th:block  th:each="process: ${processStore.getProcesses()}">
+<th:block th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
     <h3>Časová náročnost:</h3>
-    <h3 th:text="${process.getDeadlineSum()}"></h3>
+    <h3 th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></h3>
 
-    <form th:action="@{/create}">
-        <input type="submit" value="Přidat úlohu!" />
+    <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
+        <input type="submit" value="Přidat úlohu!"/>
     </form>
 
-<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}"  border="1">
+<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}" border="1">
     <tr>
         <th>Task</th>
         <th>V jaký čas od startu začít</th>

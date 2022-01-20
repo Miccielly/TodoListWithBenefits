@@ -93,4 +93,6 @@ public class Task extends TimeManager {
 
     public String getParentId() { return parentId; }
 
+    public void setParentId(String parentId) { this.parentId = parentId; }
+
 }

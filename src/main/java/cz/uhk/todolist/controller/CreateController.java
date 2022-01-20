@@ -2,8 +2,10 @@ package cz.uhk.todolist.controller;
 
 import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.model.Process;
+import cz.uhk.todolist.model.Task;
 import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.ProjectRepository;
+import cz.uhk.todolist.services.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class CreateController {
 
     @Autowired
     ProcessRepository processRepository;
+
+    @Autowired
+    TaskRepository taskRepository;
 
 
     //VYTVÁŘENÍ PROJEKTŮ
@@ -48,7 +53,6 @@ public class CreateController {
         Project project = projectRepository.findById(parentId).get();
         model.addAttribute("project", project);
         model.addAttribute("process", process);
-        //model.addAttribute("project", project);
         System.out.println("createProcessFormShown!");
         return "createProcess";
     }
@@ -61,6 +65,37 @@ public class CreateController {
         //System.out.println("CreateProcessDeadline: " + process.getDeadline());
 
         processRepository.save(process);
+        return "redirect:/";
+    }
+
+    //VYTVÁŘENÍ TASKŮ
+    @GetMapping({"/createTask/{parentId}"})
+    public String showCreateTaskForm(Model model, @PathVariable String parentId)
+    {
+        Task task = new Task();
+        Process process = processRepository.findById(parentId).get();
+
+
+
+        model.addAttribute("process", process);
+        model.addAttribute("task", task);
+
+        System.out.println("parentId found: " + process.getId() );
+
+
+        return "createTask";
+    }
+
+    @PostMapping({"/createTask/{parentId}"})
+    public String createTask(@ModelAttribute Task task, Model model, @PathVariable String parentId)
+    {
+        System.out.println("CreateTaskPrevious: " + task.getPreviousTaskId());
+        System.out.println("CreateTaskNext: " + task.getNextTaskId());
+        System.out.println("CreateTaskParentId: " + task.getParentId());
+        System.out.println("CreateTaskDescription: " + task.getDescription());
+        System.out.println("CreateTaskDeadline: " + task.getDeadline());
+
+        //taskRepository.save(task);
         return "redirect:/";
     }
 }

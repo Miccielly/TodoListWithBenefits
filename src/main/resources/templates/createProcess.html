@@ -7,11 +7,9 @@
 <h1>Přidání processu</h1>
 <h3></h3>
 <p>
-<form action= "#" th:action="@{/createProcess/{parentId}(parentId = ${project.getId()})}" th:object="${process}" method="post">
-<!--    <input type="hidden" th:field="*{project.getId()}" name="projectId" ><br>-->
-<!--    <h1 id="pname" th:text="${project.getDescription()}">hehe</h1>-->
+<form action="#" th:action="@{/createProcess/{parentId}(parentId = ${project.getId()})}" th:object="${process}"
+      method="post">
 
-<!--    <input type="text" th:field="*{}">-->
     <label for="fname">Process description:</label><br>
     <input type="text" th:field="*{description}" id="fname" name="fname"><br>
     <label for="lname">Deadline:</label><br>

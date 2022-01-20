@@ -7,11 +7,12 @@
 <h1>Todo List With Benefits</h1>
 
 <form th:action="@{/createProject}">
-    <input type="submit" value="Vytvořit projekt!" />
+    <input type="submit" value="Vytvořit projekt!"/>
 </form>
 
 <h2>Zvol si svůj projekt</h2>
-<p><table border="1">
+<p>
+<table border="1">
     <tr>
         <th>Jméno projektu</th>
         <th>Termín dokončení</th>
@@ -19,11 +20,11 @@
     <tr th:each="project: ${projectStore.getProjects()}">
         <td th:text="${project.getDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
-      <td>
-          <form th:action="@{/project/{id}(id=${project.getId()})}">
-                <input type="submit" value="Otevřít" />
-          </form>
-      </td>
+        <td>
+            <form th:action="@{/project/{id}(id=${project.getId()})}">
+                <input type="submit" value="Otevřít"/>
+            </form>
+        </td>
     </tr>
 </table>
 </p>
