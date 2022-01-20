@@ -1,6 +1,5 @@
 package cz.uhk.todolist.model;
 
-import org.apache.tomcat.jni.Proc;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -87,7 +86,7 @@ public class Process extends TimeManager {
         {
             for (int j = 0; j < tasks.size(); j++)
             {
-                if(!tasks.get(j).isOnlyNode() && sorted.get(i).getTaskId().equals(tasks.get(j).getPreviousTaskId()))
+                if(!tasks.get(j).isOnlyNode() && sorted.get(i).getId().equals(tasks.get(j).getPreviousTaskId()))
                 {
                     sorted.add(tasks.get(j));   //přidání tasků, které navazují na již seřazené tasky
                 }
@@ -118,9 +117,9 @@ public class Process extends TimeManager {
             for (int j = 0; j < tasks.size(); j++)
             {
                 if(    !(tasks.get(j).isOnlyNode() && tasks.get(i).isOnlyNode())   //start a ending node nesmí být spojený hranou
-                        && !tasks.get(j).getTaskId().equals(tasks.get(i).getTaskId()) // task nesmí mít hranu sám na sebe
-                        && (tasks.get(j).getPreviousTaskId().equals(tasks.get(i).getTaskId())
-                        || tasks.get(i).getNextTaskId().equals(tasks.get(j).getTaskId()))
+                        && !tasks.get(j).getId().equals(tasks.get(i).getId()) // task nesmí mít hranu sám na sebe
+                        && (tasks.get(j).getPreviousTaskId().equals(tasks.get(i).getId())
+                        || tasks.get(i).getNextTaskId().equals(tasks.get(j).getId()))
                 )
                 {
                     //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
@@ -143,9 +142,9 @@ public class Process extends TimeManager {
             for(int j = tasks.size()-1; j >= 0; j--) {
                 //projít listu tásků směrem od cíle a odčítat jednotlivé deadliny od časové náročnosti celého modelu (časová náročnost posledního tasku, respektive endu)
                 if (    !(tasks.get(j).isOnlyNode() && tasks.get(i).isOnlyNode())   //start a ending node nesmí být spojený hranou
-                        && !tasks.get(j).getTaskId().equals(tasks.get(i).getTaskId()) // task nesmí mít hranu sám na sebe
-                        && (tasks.get(j).getNextTaskId().equals(tasks.get(i).getTaskId())
-                        || tasks.get(i).getPreviousTaskId().equals( tasks.get(j).getTaskId()))
+                        && !tasks.get(j).getId().equals(tasks.get(i).getId()) // task nesmí mít hranu sám na sebe
+                        && (tasks.get(j).getNextTaskId().equals(tasks.get(i).getId())
+                        || tasks.get(i).getPreviousTaskId().equals( tasks.get(j).getId()))
                 )
                 {
                     //System.out.println(tasks.get(i).getCriticalCost() + " - " + tasks.get(j).getDeadline());

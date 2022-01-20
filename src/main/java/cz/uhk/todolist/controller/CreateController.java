@@ -6,6 +6,7 @@ import cz.uhk.todolist.model.Task;
 import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.ProjectRepository;
 import cz.uhk.todolist.services.TaskRepository;
+import cz.uhk.todolist.utils.TaskStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +42,8 @@ public class CreateController {
 //        System.out.println("CreateProjectDescription: " + project.getDescription());
 //        System.out.println("CreateProjectDeadline: " + project.getDeadline());
         //TODO přidat validaci před nahráním do db
+        //TODO ošetřit prázdné/nesmyslné inputy
+
         projectRepository.save(project);
         return "redirect:/";
     }
@@ -64,6 +67,8 @@ public class CreateController {
         //System.out.println("CreateProcessDescription: " + process.getDescription());
         //System.out.println("CreateProcessDeadline: " + process.getDeadline());
 
+        //TODO ošetřit prázdné/nesmyslné inputy
+
         processRepository.save(process);
         return "redirect:/";
     }
@@ -74,12 +79,13 @@ public class CreateController {
     {
         Task task = new Task();
         Process process = processRepository.findById(parentId).get();
-
+        TaskStore taskStore = new TaskStore(taskRepository.findByParentId(process.getId()));
 
 
         model.addAttribute("process", process);
         model.addAttribute("task", task);
-
+        model.addAttribute("otherTasks", taskStore);    //seznam tásků patřících do procesu (pro napojení previous a next tasků)
+//        model.addAttribute("projectId", process.getParentId());
         System.out.println("parentId found: " + process.getId() );
 
 
@@ -89,13 +95,18 @@ public class CreateController {
     @PostMapping({"/createTask/{parentId}"})
     public String createTask(@ModelAttribute Task task, Model model, @PathVariable String parentId)
     {
-        System.out.println("CreateTaskPrevious: " + task.getPreviousTaskId());
-        System.out.println("CreateTaskNext: " + task.getNextTaskId());
-        System.out.println("CreateTaskParentId: " + task.getParentId());
-        System.out.println("CreateTaskDescription: " + task.getDescription());
-        System.out.println("CreateTaskDeadline: " + task.getDeadline());
+            Process process = processRepository.findById(parentId).get();
+            String projectId = process.getParentId();
+//TODO ošetřit prázdné/nesmyslné inputy
 
-        //taskRepository.save(task);
-        return "redirect:/";
+//        System.out.println("ProjectId: " + projectId);
+//        System.out.println("CreateTaskPrevious: " + task.getPreviousTaskId());
+//        System.out.println("CreateTaskNext: " + task.getNextTaskId());
+//        System.out.println("CreateTaskParentId: " + task.getParentId());
+//        System.out.println("CreateTaskDescription: " + task.getDescription());
+//        System.out.println("CreateTaskDeadline: " + task.getDeadline());
+
+        taskRepository.save(task);
+        return "redirect:/project/"+projectId;
     }
 }

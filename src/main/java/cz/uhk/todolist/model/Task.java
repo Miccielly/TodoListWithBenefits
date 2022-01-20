@@ -68,7 +68,7 @@ public class Task extends TimeManager {
     }
 
 
-    public String getTaskId() { return id; }
+    public String getId() { return id; }
 
     public boolean isOnlyNode() { return onlyNode; }
 
