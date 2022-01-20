@@ -1,5 +1,6 @@
 package cz.uhk.todolist.model;
 
+import org.apache.tomcat.jni.Proc;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,6 +30,8 @@ public class Process extends TimeManager {
         //tasks.add(new Task(true));
         //tasks.add(new Task(false));
     }
+
+    public Process(){}; //"Defaultní" konstruktor
 
     //METODY
     public void addTask(Task task) {
@@ -173,6 +176,7 @@ public class Process extends TimeManager {
     }
 
     public String getParentId() { return parentId; }
+    public void setParentId(String parentId) { this.parentId = parentId; }
 
     public void addTasks (List<Task> tasks) { this.tasks = tasks; }
 

@@ -7,7 +7,7 @@
 <h1 th:text="${project.getDescription()}"></h1>
 
 
-<form th:action="@{/create}">
+<form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
     <input type="submit" value="Přidat proces!" />
 </form>
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
