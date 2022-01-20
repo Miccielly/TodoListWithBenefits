@@ -35,9 +35,6 @@ public class Project extends TimeManager {
     {
         this.description = name;
         this.deadline = deadline;
-
-        //startDate = getCurrentDate();
-
     }
 
     public Project(String name)

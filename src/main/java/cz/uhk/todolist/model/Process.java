@@ -157,10 +157,6 @@ public class Process extends TimeManager {
         return deadlinesum;
     }
 
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
-    }
-
     public float getDeadlinesum() {
         return deadlinesum;
     }

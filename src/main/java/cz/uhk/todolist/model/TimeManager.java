@@ -10,8 +10,9 @@ public class TimeManager {
     protected String description;
 
     //ČAS
-    protected float deadline = 0; //odhadovaný čas pro splnění všech úloh v tomto procesu
-    protected float currentTime = 0;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+    protected float deadline; //odhadovaný čas pro splnění všech úloh v tomto procesu
+    protected float currentTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+
 
     //Dates
     //protected LocalDateTime startDate;
@@ -29,11 +30,13 @@ public class TimeManager {
         return deadline;
     }
 
-    public float setDeadline() { return deadline; }
+    public void setDeadline(float deadline) { this.deadline = deadline; }
 
     public float getCurrentTime() {
         return currentTime;
     }
+
+    public void setCurrentTime(float currentTime) { this.currentTime = currentTime; }
 
     public void updateCurrentTime()
     {
@@ -47,6 +50,13 @@ public class TimeManager {
         //Duration duration = Duration.between(startDate, getCurrentDate());
 
         //System.out.println("timeElapsed: " + duration);
+    }
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
 }

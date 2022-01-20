@@ -20,13 +20,14 @@ public class CreateController {
         Project project = new Project();
         model.addAttribute("project", project);
         System.out.println("create form shown!");
-        return "create";
+        return "createProject";
     }
 
     @PostMapping("/create")
     public String createProject(@ModelAttribute Project project, Model model)
     {
-        System.out.println("CreateProject: " + project.getDescription());
+//        System.out.println("CreateProjectDescription: " + project.getDescription());
+//        System.out.println("CreateProjectDeadline: " + project.getDeadline());
         //TODO přidat validaci před nahráním do db
         projectRepository.save(project);
         return "redirect:/";
