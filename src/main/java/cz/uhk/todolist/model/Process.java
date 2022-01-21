@@ -63,7 +63,6 @@ public class Process extends TimeManager {
 
     public void sortTasks()
     {
-        //TODO opravit sort aby se nestal problém jako v procesu snídaně
         List<Task> sorted = new ArrayList<>();
         boolean endFound = false;
         int endNodeIndex = -1;
@@ -123,6 +122,8 @@ public class Process extends TimeManager {
                         || tasks.get(i).getNextTaskId().equals(tasks.get(j).getId()))
                 )
                 {
+                    //TODO Přidat táskům boolean navštívenost a nepovolit jít do dalšího nenavštíveného tasku pokud existuje přechozí nenavštívený (přechozí lze určit podle indexu)!
+
                     System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
                     float newCost = tasks.get(i).getDeadline() + tasks.get(i).getCost();

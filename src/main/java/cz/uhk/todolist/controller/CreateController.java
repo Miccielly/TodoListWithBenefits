@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 public class CreateController {
@@ -116,5 +118,17 @@ public class CreateController {
 
         taskRepository.save(task);
         return "redirect:/project/"+projectId;
+    }
+
+    //EDITACE TASKŮ
+    @GetMapping({"editProcess/{taskId}"})
+    public String editTask(@ModelAttribute Task task, Model model, @PathVariable String taskId)
+    {
+        //stejné jako model.addAttribute? když máme @ModelAttribute v parametrech?
+        task = taskRepository.findById(taskId).get();
+        Process process = processRepository.findById(task.getParentId()).get();
+
+        model.addAttribute("process", process);
+        return "edit"; ?????????
     }
 }

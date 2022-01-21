@@ -19,7 +19,9 @@
 <span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
 <th:block th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
-    <h3>Časová náročnost:</h3>
+     <h3>Čas vyhrazený pro proces:</h3>
+    <h3 th:text="${process.getDeadline()}"></h3>
+    <h3>Celkový čas ke splnění úloh:</h3>
     <h3 th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></h3>
 
     <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">

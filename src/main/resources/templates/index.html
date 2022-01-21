@@ -15,8 +15,8 @@
 <table border="1">
     <tr>
         <th>Jméno projektu</th>
-        <th>Termín dokončení</th>
-        <th>Nepřidělený čas</th>
+        <th>Čas vyhrazený pro projekt</th>
+        <th>Čas nepřidělený procesům</th>
     </tr>
     <tr th:each="project: ${projectStore.getProjects()}">
         <td th:text="${project.getDescription()}"></td>
