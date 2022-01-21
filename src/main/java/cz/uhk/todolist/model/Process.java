@@ -63,17 +63,18 @@ public class Process extends TimeManager {
 
     public void sortTasks()
     {
+        //TODO opravit sort aby se nestal problém jako v procesu snídaně
         List<Task> sorted = new ArrayList<>();
         boolean endFound = false;
         int endNodeIndex = -1;
         //najití start nodu
         for (int i = 0; i < tasks.size(); i++)
         {
-            System.out.println(i + " description: " + tasks.get(i).getDescription());
+//            System.out.println(i + " description: " + tasks.get(i).getDescription());
             if(tasks.get(i).isOnlyNode() && tasks.get(i).getDescription().equals("Start Node"))
             {
                 sorted.add(tasks.get(i));   //přidání start node
-                System.out.println(tasks.get(i).getDescription());
+//                System.out.println(tasks.get(i).getDescription());
             }
             else if ( !endFound && tasks.get(i).isOnlyNode() && tasks.get(i).getDescription().equals("End Node"))
             {
@@ -101,11 +102,11 @@ public class Process extends TimeManager {
     }
     public void calculateCriticalPath()
     {
+        //TODO vyřešit problém kdy nejsou tasky napojeny jak mají, tak aby bylo vypsáno že chybí napojení v UI
         //Funguje pouze na seřazeném listu tasků, od start node do end node
         //jak to vypočítat? -> projít tasky a podle návaznosti spočítat cesty k cíli -> cestou zpět naplnit časové rezervy
         //co má být výstup? -> taskům vypočtena hodnota časové rezervy
         sortTasks();
-        System.out.println("CPM Calculation " + tasks.size() );
 
         if(!(tasks.size() > 0))
         {
@@ -122,7 +123,7 @@ public class Process extends TimeManager {
                         || tasks.get(i).getNextTaskId().equals(tasks.get(j).getId()))
                 )
                 {
-                    //System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
+                    System.out.println(tasks.get(i).getDescription() + " ---> " + tasks.get(j).getDescription());
 
                     float newCost = tasks.get(i).getDeadline() + tasks.get(i).getCost();
                     if(newCost > tasks.get(j).getCost())
@@ -133,7 +134,7 @@ public class Process extends TimeManager {
 
         deadlinesum = tasks.get(tasks.size()-1).getCost();
         tasks.get(tasks.size()-1).setCriticalCost(deadlinesum- tasks.get(tasks.size()-1).getDeadline());
-        System.out.println(tasks.get(tasks.size()-1).getDescription() + " CriticalCost = " + tasks.get(tasks.size()-1).getCriticalCost());
+        //System.out.println(tasks.get(tasks.size()-1).getDescription() + " CriticalCost = " + tasks.get(tasks.size()-1).getCriticalCost());
 
         //Procházení směrem od end do start
         for(int i = tasks.size()-1; i >= 0; i--)
@@ -164,10 +165,6 @@ public class Process extends TimeManager {
 
     public float getDeadlineSum()
     {
-        return deadlinesum;
-    }
-
-    public float getDeadlinesum() {
         return deadlinesum;
     }
 

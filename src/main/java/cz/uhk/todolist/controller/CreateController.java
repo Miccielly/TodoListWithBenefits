@@ -68,9 +68,18 @@ public class CreateController {
         //System.out.println("CreateProcessDeadline: " + process.getDeadline());
 
         //TODO ošetřit prázdné/nesmyslné inputy
+        processRepository.save(process);    //uložení procesu
+        //TODO ošetřit aby jméno procesu bylo unikátní pro daný projekt
+        Process p = processRepository.findByDescription(process.getDescription());  //získání procesu který jsme teď vytvořili (pro získání id z databáze)
+        Task start = new Task(true, p.getId()); //vytvoření start úlohy
+        Task end = new Task(false, p.getId());  //vytvoření end úlohy
 
-        processRepository.save(process);
-        return "redirect:/";
+        //uložení úloh do databáze
+        taskRepository.save(start);
+        taskRepository.save(end);
+
+
+        return "redirect:/project/"+parentId;
     }
 
     //VYTVÁŘENÍ TASKŮ
@@ -85,7 +94,6 @@ public class CreateController {
         model.addAttribute("process", process);
         model.addAttribute("task", task);
         model.addAttribute("otherTasks", taskStore);    //seznam tásků patřících do procesu (pro napojení previous a next tasků)
-//        model.addAttribute("projectId", process.getParentId());
         System.out.println("parentId found: " + process.getId() );
 
 

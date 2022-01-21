@@ -16,10 +16,12 @@
     <tr>
         <th>Jméno projektu</th>
         <th>Termín dokončení</th>
+        <th>Nepřidělený čas</th>
     </tr>
     <tr th:each="project: ${projectStore.getProjects()}">
         <td th:text="${project.getDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
+        <td th:text="${project.getNonAlocatedTime()}"></td>
         <td>
             <form th:action="@{/project/{id}(id=${project.getId()})}">
                 <input type="submit" value="Otevřít"/>

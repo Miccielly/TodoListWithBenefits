@@ -22,8 +22,7 @@ public class Project extends TimeManager {
 
 
     //KONSTRUKTORY
-    public Project(String name, List<Process> processes, float deadline)
-    {
+    public Project(String name, List<Process> processes, float deadline) {
         this.description = name;
         this.processes = processes;
         this.deadline = deadline;
@@ -31,31 +30,26 @@ public class Project extends TimeManager {
         //startDate = getCurrentDate();
     }
 
-    public Project(String name, float deadline)
-    {
+    public Project(String name, float deadline) {
         this.description = name;
         this.deadline = deadline;
     }
 
-    public Project(String name)
-    {
+    public Project(String name) {
         this.description = name;
     }
 
-    public Project()
-    {
+    public Project() {
 
 
     }
     //METODY
 
-    public void computeEstimatedTimeSum()
-    {
+    public void computeEstimatedTimeSum() {
         float et = 0;
-        for(int i = 0; i < processes.size()-1; i++)
-        {
+        for (int i = 0; i < processes.size() - 1; i++) {
             processes.get(i).computeEstimatedTimeSum();
-            if(processes.get(i).getDeadline() < processes.get(i).getDeadline())
+            if (processes.get(i).getDeadline() < processes.get(i).getDeadline())
                 et += processes.get(i).getDeadline();
             else
                 et += processes.get(i).getCurrentTime();
@@ -65,13 +59,15 @@ public class Project extends TimeManager {
 
     //GETTERY SETTERY
 
-    public void addProcess(Process process)
-    {
+    public void addProcess(Process process) {
         processes.add(process);
     }
 
-    public List<Process> getProcesses()
-    {
+    public void setProcesses(List<Process> processes) {
+        this.processes = processes;
+    }
+
+    public List<Process> getProcesses() {
         return processes;
     }
 
@@ -83,18 +79,30 @@ public class Project extends TimeManager {
         this.description = name;
     }
 
-    public float getDeadLineSum() {
-        return deadLineSum;
-    }
-
-    public float getTimeDifference()
-    {
+    public float getTimeDifference() {
         updateCurrentTime();
-        return (getCurrentTime()- getDeadline());
+        return (getCurrentTime() - getDeadline());
     }
 
-    public String getId()
-    {
+    public float getNonAlocatedTime() {
+        float nat = deadline;   //unalocated time
+
+        if (processes.size() > 0) {
+            for (int i = 0; i < processes.size(); i++) {
+                if (processes.get(i).getDeadline() > processes.get(i).getDeadlineSum())
+                    nat -= processes.get(i).getDeadline();
+                else {
+                    System.out.println("deadlineSumVětší < deadline = " + processes.get(i).getDescription());
+                    nat -= processes.get(i).getDeadlineSum();
+                }
+            }
+            System.out.println("Project: " + description + " nat: " + nat);
+            return nat;
+        }
+        return nat;
+    }
+
+    public String getId() {
         return id;
     }
 

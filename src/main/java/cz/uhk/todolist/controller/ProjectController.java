@@ -32,22 +32,23 @@ public class ProjectController {
         ModelAndView model = new ModelAndView("project");
 
         Project project = projectRepository.findById(id).get();
-        System.out.println("project id: " + id);
+        //System.out.println("project id: " + id);
 
         if(project != null) {
             ProcessStore processStore = new ProcessStore(processRepository.findByParentId(project.getId()));
             //System.out.println("processStore.getProcesses == null " + (processStore.getProcesses() == null));
-            System.out.println(processStore.getProcesses().size());
+            //System.out.println(processStore.getProcesses().size());
 
             if(processStore != null && processStore.getProcesses().size() > 0)
             {
-                System.out.println("processesSize: " + processStore.getProcesses().size());
+                //System.out.println("processesSize: " + processStore.getProcesses().size());
 
                 for(int i = 0; i < processStore.getProcesses().size(); i++)
                 {
                     List<Task> tasks = taskRepository.findByParentId(processStore.getProcesses().get(i).getId());
                     processStore.getProcesses().get(i).addTasks(tasks);
                     processStore.getProcesses().get(i).calculateCriticalPath();
+                    processRepository.save(processStore.getProcesses().get(i)); //aktualizuje v databázi hodnoty cost, deadlinesum atd...
                 }
                 model.addObject(processStore);
             }

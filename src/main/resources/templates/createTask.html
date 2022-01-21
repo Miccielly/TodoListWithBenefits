@@ -12,11 +12,13 @@
     <h1 th:text="${process.getId()}"></h1>
     <label for="ptask">Previous Task:</label><br>
     <select id="ptask" th:field="*{previousTaskId}">
+        <option th:value="NotConnected" th:text="'Not connected'"></option>
         <option th:each="task: ${otherTasks.getTasks()}" th:value="${task.getId()}" th:text="${task.getDescription()}"></option>
     </select><br>
 
     <label for="ntask">Next Task:</label><br>
     <select id="ntask" th:field="*{nextTaskId}">
+        <option th:value="NotConnected" th:text="'Not connected'"></option>
         <option th:each="task: ${otherTasks.getTasks()}" th:value="${task.getId()}" th:text="${task.getDescription()}"></option>
     </select><br>
 
