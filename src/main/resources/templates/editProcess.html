@@ -4,10 +4,10 @@
     <title>Hello</title>
 </head>
 <body>
-<h1>Editace processu</h1>
+<h1>Úprava processu</h1>
 <h3></h3>
 
-<form action="#" th:action="@{/editProcess/{parentId}(parentId = ${process.getParentId()})}" th:object="${process}"
+<form action="#" th:action="@{/editProcess/{processId}(processId = ${process.getId()})}" th:object="${process}"
       method="post">
 
     <label for="fname">Process description:</label><br>

@@ -8,7 +8,7 @@
 
 <h1>Úprava úlohy</h1>
 
-<form action="#" th:action="@{/editTask/{parentId}(parentId = ${process.getId()})}" th:object="${task}" method="post">
+<form action="#" th:action="@{/editTask/{taskId}(taskId = ${task.getId()})}" th:object="${task}" method="post">
     <h1 th:text="${task.getDescription()}"></h1>
     <label for="ptask">Previous Task:</label><br>
     <select id="ptask" th:field="*{previousTaskId}">

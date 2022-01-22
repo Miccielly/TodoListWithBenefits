@@ -40,6 +40,11 @@
     <td th:text="${task.getCost()}"></td>
     <td th:text="${task.getDeadline()}"></td>
     <td th:text="${task.getTimeReserve()}"></td>
+    <td>
+         <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
+                <input type="submit" value="Upravit!"/>
+            </form>
+    </td>
     </tr>
 </table>
 </th:block>

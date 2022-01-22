@@ -7,6 +7,7 @@ import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.ProjectRepository;
 import cz.uhk.todolist.services.TaskRepository;
 import cz.uhk.todolist.utils.TaskStore;
+import org.apache.tomcat.jni.Proc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -128,7 +129,7 @@ public class CreateController {
     public String editProjectForm(Model model, @PathVariable String projectId)
     {
         Project project = projectRepository.findById(projectId).get();
-        System.out.println("before: " + project.getId() + " " + project.getDescription() + " " + project.getDeadline());
+        //System.out.println("before: " + project.getId() + " " + project.getDescription() + " " + project.getDeadline());
         model.addAttribute("project", project);
         return "editProject";
     }
@@ -136,13 +137,13 @@ public class CreateController {
     @PostMapping("/editProject/{projectId}")
     public String editProject(@ModelAttribute Project project, @PathVariable String projectId)
     {
-        Project newProject = projectRepository.findById(projectId).get();
-        newProject.setDescription(project.getDescription());
-        newProject.setDeadline(project.getDeadline());
-        //System.out.println("frommodel: " + project1.getId());
+        Project editedProject = projectRepository.findById(projectId).get();
 
-        System.out.println("after: " + newProject.getId() + " " + newProject.getDescription() + " " + newProject.getDeadline());
-        projectRepository.save(newProject);
+        editedProject.setDescription(project.getDescription());
+        editedProject.setDeadline(project.getDeadline());
+
+        //System.out.println("after: " + newProject.getId() + " " + newProject.getDescription() + " " + newProject.getDeadline());
+        projectRepository.save(editedProject);
         return "redirect:/";
     }
 
@@ -155,32 +156,53 @@ public class CreateController {
         return "editProcess";
     }
 
-    @PostMapping({"/editProcess/{parentId}"})
-    public String editProcess(@ModelAttribute Process process, Model model, @PathVariable String parentId)
+    @PostMapping({"/editProcess/{processId}"})
+    public String editProcess(@ModelAttribute Process process, Model model, @PathVariable String processId)
     {
-        processRepository.save(process);    //uložení procesu
-        return "redirect:/project/"+parentId;
+        Process editedProcess = processRepository.findById(processId).get();
+
+        editedProcess.setDescription(process.getDescription());
+        editedProcess.setDeadline(process.getDeadline());
+
+        processRepository.save(editedProcess);    //uložení procesu
+        return "redirect:/project/"+editedProcess.getParentId();
     }
 
     //EDITACE TASKŮ
     @GetMapping({"editTask/{taskId}"})
-    public String editTaskForm(@ModelAttribute Task task, Model model, @PathVariable String taskId)
+    public String editTaskForm(Model model, @PathVariable String taskId)
     {
-        //stejné jako model.addAttribute? když máme @ModelAttribute v parametrech?
-        task = taskRepository.findById(taskId).get();
-        Process process = processRepository.findById(task.getParentId()).get();
+        //TODO ZAMEZIT EDITACI TASKŮ END A START
+        Task task = taskRepository.findById(taskId).get();
 
-        model.addAttribute("process", process);
-        return "edit";
+        TaskStore taskStore = new TaskStore(taskRepository.findByParentId(task.getParentId()));
+        for(int i = 0; i < taskStore.getTasks().size(); i++)
+        {
+            if(taskStore.getTasks().get(i).getId().equals(task.getId()))
+            {
+                taskStore.getTasks().remove(i); //odstranění tasku, který upravujeme aby se nenapojil sám na sebe
+            }
+        }
+
+        model.addAttribute("task", task);
+        model.addAttribute("otherTasks", taskStore);
+
+        return "editTask";
     }
 
-    @PostMapping({"/editTask/{parentId}"})
-    public String editTask(@ModelAttribute Task task, Model model, @PathVariable String parentId)
+    @PostMapping({"/editTask/{taskId}"})
+    public String editTask(@ModelAttribute Task task, Model model, @PathVariable String taskId)
     {
-        Process process = processRepository.findById(parentId).get();
-        String projectId = process.getParentId();
+        Task editedTask = taskRepository.findById(taskId).get();
+        Process process = processRepository.findById(editedTask.getParentId()).get();
 
-        taskRepository.save(task);
-        return "redirect:/project/"+projectId;
+
+        editedTask.setDescription(task.getDescription());
+        editedTask.setDeadline(task.getDeadline());
+        editedTask.setPreviousTaskId(task.getPreviousTaskId());
+        editedTask.setNextTaskId(task.getNextTaskId());
+
+        taskRepository.save(editedTask);
+        return "redirect:/project/"+process.getParentId();
     }
 }
