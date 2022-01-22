@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>DeleteProject</title>
+</head>
+<body>
+
+<h1>Are you sure about deleting project with processes and tasks in it?</h1>
+
+<form action= "#" th:action="@{/deleteTask/{projectId}(projectId = ${project.getId()})}" th:object="${project}" method="post">
+    <label for="delbtn" th:text="${project.getDescription()}">:</label><br>
+    <button id="delbtn" type="submit">Opravdu smazat!</button>
+</form>
+
+</body>
+</html>

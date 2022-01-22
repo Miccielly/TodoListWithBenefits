@@ -123,7 +123,7 @@ public class CreateController {
 
 
 
-//EDITACEEEEEEEEEEEE
+//EDITACEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     //EDITACE PROJEKTŮ
     @GetMapping({"editProject/{projectId}"})
     public String editProjectForm(Model model, @PathVariable String projectId)
@@ -205,4 +205,93 @@ public class CreateController {
         taskRepository.save(editedTask);
         return "redirect:/project/"+process.getParentId();
     }
+
+    //MAZÁNÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
+    //MAZÁNÍ PROJEKTŮ
+
+    @GetMapping({"/deleteProject/{projectId}"})
+    public String deleteProjectForm(Model model, @PathVariable String projectId)
+    {
+        Project project = projectRepository.findById(projectId).get();
+        model.addAttribute("project", project);
+
+        return "deleteTask";
+    }
+
+    @PostMapping({"/deleteProject/{projectId}"})
+    public String deleteProject(@ModelAttribute Task task, Model model, @PathVariable String projectId)
+    {
+        List<Process> processes = processRepository.findByParentId(projectId);    //list procesů v projektu
+
+        //SMAZÁNÍ VŠECH PROCESŮ A TASKŮ V NICH
+        for(int i = 0; i < processes.size(); i ++)
+        {
+            List<Task> tasks = taskRepository.findByParentId(processes.get(i).getId());    //získání všech tásků, které jsou v mazaném procesu
+
+            //Mazání všech tasků, které jsou v procesu
+            for(int j = 0; j < tasks.size(); j++)
+            {
+                taskRepository.delete(tasks.get(j));    //smazání task po tasku, které jsou v procesu
+            }
+            processRepository.delete(processes.get(i)); //smazání procesu po smazání tasků, které byli v něm
+        }
+
+        projectRepository.deleteById(projectId);    //smazání procesu
+        return "redirect:/project/"+projectId;
+    }
+
+    //MAZÁNÍ PROCESŮ
+    @GetMapping({"/deleteProcess/{processId}"})
+    public String deleteProcessForm(Model model, @PathVariable String processId)
+    {
+        Process process = processRepository.findById(processId).get();
+        model.addAttribute("process", process);
+
+        return "deleteTask";
+    }
+
+    @PostMapping({"/deleteProcess/{processId}"})
+    public String deleteProcess(@ModelAttribute Task task, Model model, @PathVariable String processId)
+    {
+        Process process = processRepository.findById(processId).get();  //process
+
+        List<Task> tasks = taskRepository.findByParentId(processId);    //získání všech tásků, které jsou v mazaném procesu
+
+        String projectId = process.getParentId();
+
+        //Mazání všech tasků, které jsou v procesu
+        for(int i = 0; i < tasks.size(); i++)
+        {
+            taskRepository.delete(tasks.get(i));
+        }
+
+        processRepository.deleteById(processId);    //smazání procesu
+        return "redirect:/project/"+projectId;
+    }
+
+    //MAZÁNÍ TASKŮ
+    @GetMapping({"/deleteTask/{taskId}"})
+    public String deleteTaskForm(Model model, @PathVariable String taskId)
+    {
+        Task task = taskRepository.findById(taskId).get();
+
+        model.addAttribute("task", task);
+
+
+        return "deleteTask";
+    }
+
+    @PostMapping({"/deleteTask/{taskId}"})
+    public String deleteTask(@ModelAttribute Task task, Model model, @PathVariable String taskId)
+    {
+        Task t = taskRepository.findById(taskId).get();
+        Process process = processRepository.findById(t.getParentId()).get();
+        String projectId = process.getParentId();
+
+        taskRepository.deleteById(taskId);
+        return "redirect:/project/"+projectId;
+    }
+
+
+
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>DeleteProcess</title>
+</head>
+<body>
+<h1>Are you sure about deleting process and tasks in it?</h1>
+
+<form action= "#" th:action="@{/deleteProcess/{processId}(processId = ${process.getId()})}" th:object="${process}" method="post">
+    <label for="delbtn" th:text="${process.getDescription()}">:</label><br>
+    <button id="delbtn" type="submit">Opravdu smazat!</button>
+</form>
+
+</body>
+</html>
