@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Tasks")
-public class Task extends TimeManager {
+public class Task extends WorkUnit {
 
     private float timeReserve = 0;
 

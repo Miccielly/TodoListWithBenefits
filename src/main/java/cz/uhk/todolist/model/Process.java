@@ -4,10 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Document(collection = "Processes")
-public class Process extends TimeManager {
+public class Process extends WorkUnit {
 
     @Id
     private String id;
@@ -19,6 +20,8 @@ public class Process extends TimeManager {
     @Transient
     private List<Task> tasks = new ArrayList<>();   //seznam úloh v procesu
     private float deadlinesum = 0; //suma času úloh
+    private float elapsedTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+    private String startDate = "";
 
     //CONSTRUCTORY
     public Process(String description, float deadline, String parentId) {
@@ -40,25 +43,6 @@ public class Process extends TimeManager {
     public List<Task> getTasks() {
         return tasks;
     }
-
-    public void computeEstimatedTimeSum()
-    {
-        if(!(tasks.size() > 0)) {
-            deadlinesum = 0;
-            return;
-        }
-        float et = 0;
-        for(int i = 0; i < tasks.size()-1; i++)
-        {
-            //je překročen deadline?
-            if(tasks.get(i).getDeadline() > tasks.get(i).getCurrentTime())
-                et += tasks.get(i).getDeadline();
-            else
-                et += tasks.get(i).getCurrentTime();
-        }
-        deadlinesum = et;
-    }
-
 
 
     public void sortTasks()
@@ -164,15 +148,32 @@ public class Process extends TimeManager {
         //tasky které mají zpáteční cestu od cíle delší než cestu od startu získají hodnotu časové rezervy
     }
 
+
+    public LocalDateTime getCurrentDate() { return LocalDateTime.now(); }
+
+    public void getDateDifference() {
+        //Duration duration = Duration.between(startDate, getCurrentDate());
+
+        //System.out.println("timeElapsed: " + duration);
+    }
+
     public float getDeadlineSum()
     {
         return deadlinesum;
     }
 
-    public float getTimeDifference()
-    {
-        updateCurrentTime();
-        return (getCurrentTime()- getDeadline());
+    public float getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(float elapsedTime) { this.elapsedTime = elapsedTime; }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getId()
@@ -181,11 +182,13 @@ public class Process extends TimeManager {
     }
 
     public String getParentId() { return parentId; }
+
     public void setParentId(String parentId) { this.parentId = parentId; }
 
     public void addTasks (List<Task> tasks) { this.tasks = tasks; }
 
     public void addTasks (Task[] tasks) { this.tasks = Arrays.asList(tasks); }
+
 
 
 }

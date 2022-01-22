@@ -1,7 +1,5 @@
 package cz.uhk.todolist.model;
 
-import cz.uhk.todolist.model.Process;
-import cz.uhk.todolist.model.TimeManager;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "Projects")
-public class Project extends TimeManager {
+public class Project extends WorkUnit {
 
     @Id
     private String id;
@@ -18,16 +16,14 @@ public class Project extends TimeManager {
     //private List<String> processesIds = new ArrayList<>();
     @Transient
     private List<Process> processes = new ArrayList<>();   //seznam procesů v projektu
-    private float deadLineSum = 0; //suma času úloh
-
+    private float elapsedTime;  //uplynulý čas od založení procesu (zastaví se po dokončení celého procesu)
+    private String startDate = "";
 
     //KONSTRUKTORY
     public Project(String name, List<Process> processes, float deadline) {
         this.description = name;
         this.processes = processes;
         this.deadline = deadline;
-
-        //startDate = getCurrentDate();
     }
 
     public Project(String name, float deadline) {
@@ -39,23 +35,7 @@ public class Project extends TimeManager {
         this.description = name;
     }
 
-    public Project() {
-
-
-    }
-    //METODY
-
-    public void computeEstimatedTimeSum() {
-        float et = 0;
-        for (int i = 0; i < processes.size() - 1; i++) {
-            processes.get(i).computeEstimatedTimeSum();
-            if (processes.get(i).getDeadline() < processes.get(i).getDeadline())
-                et += processes.get(i).getDeadline();
-            else
-                et += processes.get(i).getCurrentTime();
-        }
-        deadLineSum = et;
-    }
+    public Project() {}
 
     //GETTERY SETTERY
 
@@ -69,11 +49,6 @@ public class Project extends TimeManager {
 
     public List<Process> getProcesses() {
         return processes;
-    }
-
-    public float getTimeDifference() {
-        updateCurrentTime();
-        return (getCurrentTime() - getDeadline());
     }
 
     public float getNonAlocatedTime() {
@@ -103,4 +78,18 @@ public class Project extends TimeManager {
         this.id = id;
     }
 
+    public float getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(float elapsedTime) { this.elapsedTime = elapsedTime; }
+
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
 }
