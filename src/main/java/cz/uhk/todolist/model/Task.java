@@ -22,6 +22,8 @@ public class Task extends WorkUnit {
     private float cost = 0;
     private float criticalCost = 9999999;
 
+    private boolean alreadyDone = false;
+
     //CONSTRUCTOR
 
     public Task(String description, float deadline, String parentId) {
@@ -94,5 +96,13 @@ public class Task extends WorkUnit {
     public String getParentId() { return parentId; }
 
     public void setParentId(String parentId) { this.parentId = parentId; }
+
+    public boolean isAlreadyDone() {
+        return alreadyDone;
+    }
+
+    public void setAlreadyDone(boolean alreadyDone) {
+        this.alreadyDone = alreadyDone;
+    }
 
 }

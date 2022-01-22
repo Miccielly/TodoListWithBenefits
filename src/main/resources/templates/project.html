@@ -6,6 +6,7 @@
 <body>
 <h1 th:text="${project.getDescription()}"></h1>
 
+<div th:insert="fragments/stopwatch :: stopwatch"></div>
 
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
     <input type="submit" value="Přidat proces!"/>
@@ -45,6 +46,12 @@
     <td th:text="${task.getCost()}"></td>
     <td th:text="${task.getDeadline()}"></td>
     <td th:text="${task.getTimeReserve()}"></td>
+    <td>
+        <form th:action="@{/markTask/{taskId}(taskId=${task.getId()})}">
+            <input type="submit" value="Done"/>
+        </form>
+    </td>
+
     <td>
          <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
                 <input type="submit" value="Upravit!"/>

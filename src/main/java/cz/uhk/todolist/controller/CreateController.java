@@ -264,7 +264,6 @@ public class CreateController {
 
         model.addAttribute("task", task);
 
-
         return "deleteTask";
     }
 
