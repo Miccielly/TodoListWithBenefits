@@ -30,7 +30,7 @@ public class CreateController {
 
     //VYTVÁŘENÍ PROJEKTŮ
     @GetMapping({"/createProject"})
-    public String showCreateForm(Model model)
+    public String createProjectForm(Model model)
     {
         Project project = new Project();
         model.addAttribute("project", project);
@@ -52,7 +52,7 @@ public class CreateController {
 
     //VYTVÁŘENÍ PROCESŮ
     @GetMapping({"/createProcess/{parentId}"})
-    public String showCreateProcessForm(Model model, @PathVariable String parentId)
+    public String createProcessForm(Model model, @PathVariable String parentId)
     {
         Process process = new Process();
         Project project = projectRepository.findById(parentId).get();
@@ -86,7 +86,7 @@ public class CreateController {
 
     //VYTVÁŘENÍ TASKŮ
     @GetMapping({"/createTask/{parentId}"})
-    public String showCreateTaskForm(Model model, @PathVariable String parentId)
+    public String createTaskForm(Model model, @PathVariable String parentId)
     {
         Task task = new Task();
         Process process = processRepository.findById(parentId).get();
@@ -120,9 +120,51 @@ public class CreateController {
         return "redirect:/project/"+projectId;
     }
 
+
+
+//EDITACEEEEEEEEEEEE
+    //EDITACE PROJEKTŮ
+    @GetMapping({"editProject/{projectId}"})
+    public String editProjectForm(Model model, @PathVariable String projectId)
+    {
+        Project project = projectRepository.findById(projectId).get();
+        System.out.println("before: " + project.getId() + " " + project.getDescription() + " " + project.getDeadline());
+        model.addAttribute("project", project);
+        return "editProject";
+    }
+
+    @PostMapping("/editProject/{projectId}")
+    public String editProject(@ModelAttribute Project project, @PathVariable String projectId)
+    {
+        Project newProject = projectRepository.findById(projectId).get();
+        newProject.setDescription(project.getDescription());
+        newProject.setDeadline(project.getDeadline());
+        //System.out.println("frommodel: " + project1.getId());
+
+        System.out.println("after: " + newProject.getId() + " " + newProject.getDescription() + " " + newProject.getDeadline());
+        projectRepository.save(newProject);
+        return "redirect:/";
+    }
+
+    //EDITACE PROCESU
+    @GetMapping({"/editProcess/{processId}"})
+    public String editProcessForm(Model model, @PathVariable String processId)
+    {
+        Process process = processRepository.findById(processId).get();
+        model.addAttribute("process", process);
+        return "editProcess";
+    }
+
+    @PostMapping({"/editProcess/{parentId}"})
+    public String editProcess(@ModelAttribute Process process, Model model, @PathVariable String parentId)
+    {
+        processRepository.save(process);    //uložení procesu
+        return "redirect:/project/"+parentId;
+    }
+
     //EDITACE TASKŮ
-    @GetMapping({"editProcess/{taskId}"})
-    public String editTask(@ModelAttribute Task task, Model model, @PathVariable String taskId)
+    @GetMapping({"editTask/{taskId}"})
+    public String editTaskForm(@ModelAttribute Task task, Model model, @PathVariable String taskId)
     {
         //stejné jako model.addAttribute? když máme @ModelAttribute v parametrech?
         task = taskRepository.findById(taskId).get();
@@ -130,5 +172,15 @@ public class CreateController {
 
         model.addAttribute("process", process);
         return "edit";
+    }
+
+    @PostMapping({"/editTask/{parentId}"})
+    public String editTask(@ModelAttribute Task task, Model model, @PathVariable String parentId)
+    {
+        Process process = processRepository.findById(parentId).get();
+        String projectId = process.getParentId();
+
+        taskRepository.save(task);
+        return "redirect:/project/"+projectId;
     }
 }

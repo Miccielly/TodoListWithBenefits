@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Todo List With Benefits</h1>
+<h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Odhlásit!"/>
 </form><br>
@@ -28,6 +29,17 @@
         <td>
             <form th:action="@{/project/{id}(id=${project.getId()})}">
                 <input type="submit" value="Otevřít"/>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/editProject/{id}(id=${project.getId()})}">
+                <input type="submit" value="Upravit!"/>
+            </form>
+        </td>
+
+        <td>
+            <form th:action="@{/deleteProject/{id}(id=${project.getId()})}">
+                <input type="submit" value="Smazat!"/>
             </form>
         </td>
     </tr>

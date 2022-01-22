@@ -4,17 +4,17 @@
     <title>Hello</title>
 </head>
 <body>
-<h1>Přidání processu</h1>
+<h1>Editace processu</h1>
 <h3></h3>
 
-<form action="#" th:action="@{/createProcess/{parentId}(parentId = ${project.getId()})}" th:object="${process}"
+<form action="#" th:action="@{/editProcess/{parentId}(parentId = ${process.getParentId()})}" th:object="${process}"
       method="post">
 
     <label for="fname">Process description:</label><br>
     <input type="text" th:field="*{description}" id="fname" name="fname"><br>
     <label for="lname">Deadline:</label><br>
     <input type="number" step="0.01" th:field="*{deadline}" id="lname" name="lname"><br>
-    <button type="submit">Add process!</button>
+    <button type="submit">Uložit změny!</button>
 </form>
 
 </body>

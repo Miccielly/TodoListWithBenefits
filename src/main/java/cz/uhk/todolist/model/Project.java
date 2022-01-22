@@ -71,14 +71,6 @@ public class Project extends TimeManager {
         return processes;
     }
 
-    public String getName() {
-        return description;
-    }
-
-    public void setName(String name) {
-        this.description = name;
-    }
-
     public float getTimeDifference() {
         updateCurrentTime();
         return (getCurrentTime() - getDeadline());
@@ -92,11 +84,11 @@ public class Project extends TimeManager {
                 if (processes.get(i).getDeadline() > processes.get(i).getDeadlineSum())
                     nat -= processes.get(i).getDeadline();
                 else {
-                    System.out.println("deadlineSumVětší < deadline = " + processes.get(i).getDescription());
+                    //System.out.println("deadlineSumVětší < deadline = " + processes.get(i).getDescription());
                     nat -= processes.get(i).getDeadlineSum();
                 }
             }
-            System.out.println("Project: " + description + " nat: " + nat);
+            //System.out.println("Project: " + description + " nat: " + nat);
             return nat;
         }
         return nat;
@@ -104,6 +96,11 @@ public class Project extends TimeManager {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 
 }
