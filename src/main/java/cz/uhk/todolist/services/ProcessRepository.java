@@ -9,4 +9,5 @@ public interface ProcessRepository extends MongoRepository<Process, String> {
     public Process findByDescription(String description);
     //public Process findByParentId(String parentId);
     public List<Process> findByParentId(String parentId);
+    public void deleteByParentId(String parentId);
 }

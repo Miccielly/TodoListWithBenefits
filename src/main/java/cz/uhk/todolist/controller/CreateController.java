@@ -223,20 +223,14 @@ public class CreateController {
     {
         List<Process> processes = processRepository.findByParentId(projectId);    //list procesů v projektu
 
-        //SMAZÁNÍ VŠECH PROCESŮ A TASKŮ V NICH
+        //projití procesů
         for(int i = 0; i < processes.size(); i ++)
         {
-            List<Task> tasks = taskRepository.findByParentId(processes.get(i).getId());    //získání všech tásků, které jsou v mazaném procesu
-
-            //Mazání všech tasků, které jsou v procesu
-            for(int j = 0; j < tasks.size(); j++)
-            {
-                taskRepository.delete(tasks.get(j));    //smazání task po tasku, které jsou v procesu
-            }
-            processRepository.delete(processes.get(i)); //smazání procesu po smazání tasků, které byli v něm
+            taskRepository.deleteByParentId(processes.get(i).getId());    //smazaní tasků, v procesu
         }
+        processRepository.deleteByParentId(projectId);  //smazání procesů
 
-        projectRepository.deleteById(projectId);    //smazání procesu
+        projectRepository.deleteById(projectId);    //smazání projektu
         return "redirect:/";
     }
 
@@ -255,16 +249,9 @@ public class CreateController {
     {
         Process process = processRepository.findById(processId).get();  //process
 
-        List<Task> tasks = taskRepository.findByParentId(processId);    //získání všech tásků, které jsou v mazaném procesu
-
         String projectId = process.getParentId();
 
-        //Mazání všech tasků, které jsou v procesu
-        for(int i = 0; i < tasks.size(); i++)
-        {
-            taskRepository.delete(tasks.get(i));
-        }
-
+        taskRepository.deleteByParentId(process.getId());   //smazání všech tasků
         processRepository.deleteById(processId);    //smazání procesu
         return "redirect:/project/"+projectId;
     }

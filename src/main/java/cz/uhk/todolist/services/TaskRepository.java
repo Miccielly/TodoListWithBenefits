@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TaskRepository extends MongoRepository<Task, String> {
     public List<Task> findByParentId(String parentId);
+    public void deleteByParentId(String parentId);
 }
