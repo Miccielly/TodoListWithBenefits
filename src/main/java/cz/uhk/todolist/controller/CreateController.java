@@ -215,7 +215,7 @@ public class CreateController {
         Project project = projectRepository.findById(projectId).get();
         model.addAttribute("project", project);
 
-        return "deleteTask";
+        return "deleteProject";
     }
 
     @PostMapping({"/deleteProject/{projectId}"})
@@ -237,7 +237,7 @@ public class CreateController {
         }
 
         projectRepository.deleteById(projectId);    //smazání procesu
-        return "redirect:/project/"+projectId;
+        return "redirect:/";
     }
 
     //MAZÁNÍ PROCESŮ
@@ -247,7 +247,7 @@ public class CreateController {
         Process process = processRepository.findById(processId).get();
         model.addAttribute("process", process);
 
-        return "deleteTask";
+        return "deleteProcess";
     }
 
     @PostMapping({"/deleteProcess/{processId}"})

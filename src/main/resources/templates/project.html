@@ -19,6 +19,11 @@
 <span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
 <th:block th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
+
+          <form th:action="@{/deleteProcess/{processId}(processId=${process.getId()})}">
+            <input type="submit" value="Smazat!"/>
+        </form>
+
      <h3>Čas vyhrazený pro proces:</h3>
     <h3 th:text="${process.getDeadline()}"></h3>
     <h3>Celkový čas ke splnění úloh:</h3>
@@ -44,6 +49,11 @@
          <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
                 <input type="submit" value="Upravit!"/>
             </form>
+    </td>
+    <td>
+        <form th:action="@{/deleteTask/{taskId}(taskId=${task.getId()})}">
+            <input type="submit" value="Smazat!"/>
+        </form>
     </td>
     </tr>
 </table>
