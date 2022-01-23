@@ -1,0 +1,3 @@
+https://www.anychart.com/blog/2020/07/22/network-graph-javascript/
+https://www.baeldung.com/spring-security-authentication-with-a-database
+https://medium.com/geekculture/docker-basics-and-easy-steps-to-dockerize-spring-boot-application-17608a65f657
