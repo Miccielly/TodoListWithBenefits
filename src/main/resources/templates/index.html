@@ -20,11 +20,13 @@
         <th>Jméno projektu</th>
         <th>Čas vyhrazený pro projekt</th>
         <th>Čas nepřidělený procesům</th>
+        <th>Čas strávený na projektu</th>
     </tr>
     <tr th:each="project: ${projectStore.getProjects()}">
         <td th:text="${project.getDescription()}"></td>
         <td th:text="${project.getDeadline()}"></td>
         <td th:text="${project.getNonAlocatedTime()}"></td>
+        <td th:text="${project.getElapsedTime()}"></td>
         <td>
             <form th:action="@{/project/{id}(id=${project.getId()})}">
                 <input type="submit" value="Otevřít"/>

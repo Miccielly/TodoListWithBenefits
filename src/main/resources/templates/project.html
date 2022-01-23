@@ -35,6 +35,10 @@
     <h3>Celkový čas ke splnění úloh:</h3>
     <h3 th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></h3>
 
+        <label for="elapsedTime">Elapsed time:</label>
+    <p id="elapsedTime" th:text="${process.getElapsedTime()}"> </p>
+    <br>
+
     <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
         <input type="submit" value="Přidat úlohu!"/>
     </form>

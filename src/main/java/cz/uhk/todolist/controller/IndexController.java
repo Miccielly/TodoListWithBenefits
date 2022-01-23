@@ -38,6 +38,9 @@ public class IndexController {
             List<Process> processes = processRepository.findByParentId(projects.get(i).getId());
 
             projects.get(i).setProcesses(processes);
+            projects.get(i).calculateElapsedTime();
+//            System.out.println("elapsedTime: " + projects.get(i).getElapsedTime());
+            projectRepository.save(projects.get(i));    //uložení elapsedTime do databáze
         }
 
 

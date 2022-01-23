@@ -35,7 +35,8 @@ public class Project extends WorkUnit {
         this.description = name;
     }
 
-    public Project() {}
+    public Project() {
+    }
 
     //GETTERY SETTERY
 
@@ -69,12 +70,21 @@ public class Project extends WorkUnit {
         return nat;
     }
 
+    public void calculateElapsedTime() {
+        float et = 0;
+        if (processes.size() > 0) {
+            for (int i = 0; i < processes.size(); i++) {
+                et += processes.get(i).getElapsedTime();
+            }
+            elapsedTime = et;
+        }
+    }
+
     public String getId() {
         return id;
     }
 
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -82,7 +92,9 @@ public class Project extends WorkUnit {
         return elapsedTime;
     }
 
-    public void setElapsedTime(float elapsedTime) { this.elapsedTime = elapsedTime; }
+    public void setElapsedTime(float elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
 
 
     public String getStartDate() {
