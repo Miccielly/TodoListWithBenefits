@@ -1,14 +1,30 @@
-<div th:fragment="stopwatch" class="wrapper">
+<div th:fragment="stopwatch(timeStore)" class="wrapper">
 <!--  <h1>Stopwatch</h1>-->
 <!--  <h2>Vanilla JavaScript Stopwatch</h2>-->
-  <p><span id="seconds">00</span>:<span id="tens">00</span></p>
+
+  <form th:action="@{/saveTime}" th:object="${timeStore}" method="post">
+
+  <label for="pselect">Timer for process:</label><br>
+  <select th:if="${timeStore != null}" id="pselect" th:field="*{selectedProcessId}" >
+    <option th:each="process: ${processStore.getProcesses()}" th:value="${process.getId()}" th:text="${process.getDescription()}"></option>
+  </select><br>
+
+  <span id="seconds">00</span>:<span id="tens">00</span>
   <button type="button" id="button-start">Start</button>
   <button type="button" id="button-stop">Stop</button>
   <button type="button" id="button-reset">Reset</button>
 
+<!--  <input type="text" id="myTimeInput" value="" >-->
+
+  <input type="hidden" step="0.01" id="timeInputMinutes" th:field="*{minutes}" >
+  <input type="hidden" step="0.01" id="timeInputSeconds" th:field="*{seconds}">
+
+  <button type="submit" id="button-submit">SaveTime</button>
+  </form>
 <script>
   window.onload = function () {
 
+    //KÓD JE POUPRAVENÝ TENS JSOU VTEŘINY A SECONDS MINUTY
     let seconds = 0;
     let tens = 0;
     let appendTens = document.getElementById("tens")
@@ -19,9 +35,8 @@
     let Interval;
 
     buttonStart.addEventListener("click", e=>{
-      console.log("bruh");
       clearInterval(Interval);
-      Interval = setInterval(startTimer, 10);
+      Interval = setInterval(startTimer, 1000);
     });
 
     buttonStop.onclick = function() {
@@ -35,6 +50,9 @@
       seconds = "00";
       appendTens.innerHTML = tens;
       appendSeconds.innerHTML = seconds;
+
+      document.getElementById("timeInputSeconds").value = 0;
+      document.getElementById("timeInputMinutes").value = 0;
     }
 
 
@@ -42,8 +60,12 @@
     function startTimer () {
       tens++;
 
+      document.getElementById("timeInputSeconds").value = tens;
+      document.getElementById("timeInputMinutes").value = seconds;
+
       if(tens <= 9){
         appendTens.innerHTML = "0" + tens;
+
       }
 
       if (tens > 9){
@@ -51,7 +73,7 @@
 
       }
 
-      if (tens > 99) {
+      if (tens > 59) {
         console.log("seconds");
         seconds++;
         appendSeconds.innerHTML = "0" + seconds;

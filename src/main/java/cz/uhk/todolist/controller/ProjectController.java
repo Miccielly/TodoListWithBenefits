@@ -6,12 +6,16 @@ import cz.uhk.todolist.services.ProjectRepository;
 import cz.uhk.todolist.services.TaskRepository;
 import cz.uhk.todolist.utils.ProcessStore;
 import cz.uhk.todolist.utils.ProjectStore;
+import cz.uhk.todolist.utils.TimeStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.*;
 import java.util.List;
 
 
@@ -30,6 +34,9 @@ public class ProjectController {
     private ModelAndView showProject(@PathVariable String id)
     {
         ModelAndView model = new ModelAndView("project");
+
+
+
 
         Project project = projectRepository.findById(id).get();
         //System.out.println("project id: " + id);
@@ -50,6 +57,11 @@ public class ProjectController {
                     processStore.getProcesses().get(i).calculateCriticalPath();
                     processRepository.save(processStore.getProcesses().get(i)); //aktualizuje v databázi hodnoty cost, deadlinesum atd...
                 }
+                TimeStore timeStore = new TimeStore();  //objekt na uložení výsledku časovače
+                timeStore.setProcessStore(processStore);    //přidání seznamu procesů pro časovač
+
+                System.out.println(timeStore.getProcessStore().getProcesses().get(0).getDescription());
+                model.addObject("timeStore", timeStore);
                 model.addObject(processStore);
             }
             else
@@ -57,11 +69,17 @@ public class ProjectController {
                 System.out.println("Nemá procesy, nebo chybí projekt!");
             }
             model.addObject(project);
-
         }
 
 
         return  model;
     }
 
+    @PostMapping({"/saveTime"})
+    public String saveTimer(@ModelAttribute TimeStore timeStore)
+    {
+        float temp = timeStore.getSeconds() + 420.5f;
+        System.out.println("Process: " + timeStore.getSelectedProcessId() + " => " + timeStore.getMinutes() + " : " + temp);
+        return "redirect:/";
+    }
 }

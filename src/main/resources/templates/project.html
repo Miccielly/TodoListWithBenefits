@@ -10,11 +10,8 @@
 <h1 th:text="${project.getDescription()}"></h1>
 
 <div id="timer" th:if="${processStore != null && processStore.getProcesses().size() > 0}">
-<label for="pselect">Timer for process:</label><br>
-<select id="pselect" >
-    <option th:each="process: ${processStore.getProcesses()}" th:value="${process.getId()}" th:text="${process.getDescription()}"></option>
-</select><br>
-<div th:insert="fragments/stopwatch :: stopwatch"></div>
+
+<div th:insert="fragments/stopwatch :: stopwatch(timeStore)"></div>
 </div>
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
     <input type="submit" value="Přidat proces!"/>
