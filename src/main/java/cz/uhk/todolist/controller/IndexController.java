@@ -2,8 +2,10 @@ package cz.uhk.todolist.controller;
 
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.Project;
+import cz.uhk.todolist.model.User;
 import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.TaskRepository;
+import cz.uhk.todolist.services.UserRepository;
 import cz.uhk.todolist.utils.ProjectStore;
 import cz.uhk.todolist.services.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,12 +29,24 @@ public class IndexController {
     @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     ProjectStore projectStore;
 
     @GetMapping({"/"})
     public ModelAndView showMainpage () {
         ModelAndView model = new ModelAndView("index");
         List<Project> projects = projectRepository.findAll();
+//        List<Project> projects = new ArrayList<>();
+//
+//        //TODO získat informaci o nalogovaném uživateli
+//        User user = userRepository.findByUsername("pavel");
+//
+//        for(int i = 0; i < user.getProjectIds().size(); i++)
+//        {
+//            projects.add(projectRepository.findById(user.getProjectIds().get(i)).get());
+//        }
 
         for (int i = 0; i < projects.size(); i++)
         {

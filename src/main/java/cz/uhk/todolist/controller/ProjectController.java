@@ -79,6 +79,6 @@ public class ProjectController {
         process.setElapsedTime( process.getElapsedTime() + timerTime);
 
         processRepository.save(process);
-        return "redirect:/";
+        return "redirect:/project/"+process.getParentId();
     }
 }

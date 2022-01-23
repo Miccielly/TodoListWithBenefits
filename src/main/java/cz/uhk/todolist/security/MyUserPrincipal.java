@@ -14,7 +14,6 @@ public class MyUserPrincipal implements UserDetails {
     public MyUserPrincipal(User user) {
 
         this.user = user;
-        System.out.println("hmmUser: " +this.user.getUsername());
     }
 
     //MUSÍ IMPLEMENTOVAT TYTO METODY

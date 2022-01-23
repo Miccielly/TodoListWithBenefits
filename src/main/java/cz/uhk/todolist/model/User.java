@@ -18,12 +18,14 @@ public class User {
     private String username;    //TODO udělat username unikátní
     private String password;
     private List<String> projectIds;
-    @DBRef
-    private Role role = new Role("ROLE_ADMIN");
+    //TODO mít víc rolí
+//    @DBRef
+    private Role role = new Role("ROLE_ADMIN");     //ROLE JE NATVRDO!
 
-    public User(String username, String password) {
+    public User(String username, String password, List<String> projectIds) {
         this.username = username;
         this.password = password;
+        this.projectIds = projectIds;
     }
 
     public User() {}

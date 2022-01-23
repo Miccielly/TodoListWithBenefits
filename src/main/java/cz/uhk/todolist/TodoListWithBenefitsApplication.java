@@ -40,10 +40,14 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-//        User user = new User("bartomi3", "wasd");
+//
+//        List<String> projectIds = new ArrayList<>();
+//        projectIds.add("61ed67d64947d35ed58a022b");
+//        projectIds.add("61ed247d120cfd5588684c84");
+//
+//
+//        User user = new User("pavel", "ps", projectIds);
 //        userRepository.save(user);
-
     }
 
     private void ShowTest()
