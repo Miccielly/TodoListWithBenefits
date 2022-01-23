@@ -9,13 +9,15 @@
 
 <h1 th:text="${project.getDescription()}"></h1>
 
+<form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
+    <input type="submit" value="Přidat proces!"/>
+</form>
+
 <div id="timer" th:if="${processStore != null && processStore.getProcesses().size() > 0}">
 
 <div th:insert="fragments/stopwatch :: stopwatch(timeStore)"></div>
 </div>
-<form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
-    <input type="submit" value="Přidat proces!"/>
-</form>
+
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
 <!--<p th:text="${project.getDateDifference()}"></p>-->
 
@@ -30,10 +32,11 @@
             <input type="submit" value="Smazat!"/>
         </form>
 
-     <h3>Čas vyhrazený pro proces:</h3>
-    <h3 th:text="${process.getDeadline()}"></h3>
-    <h3>Celkový čas ke splnění úloh:</h3>
-    <h3 th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></h3>
+    <label for="pDeadline">Deadline procesu:</label>
+    <p id="pDeadline" th:text="${process.getDeadline()}"></p>
+
+    <label for="deadlineSum">Celkový čas ke splnění úloh:</label>
+    <p id="deadlineSum" th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></p>
 
         <label for="elapsedTime">Elapsed time:</label>
     <p id="elapsedTime" th:text="${process.getElapsedTime()}"> </p>
@@ -43,13 +46,15 @@
         <input type="submit" value="Přidat úlohu!"/>
     </form>
 
-<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}" border="1">
+<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}" class="table">
+    <thead class="thead-dark">
     <tr>
         <th>Task</th>
         <th>V jaký čas od startu začít</th>
         <th>Čas přidělený k úloze</th>
         <th>Časová rezerva</th>
     </tr>
+    </thead>
     <tr th:if="${!task.isOnlyNode()}" th:each="task: ${process.getTasks()}">
     <td th:text="${task.getDescription()}"></td>
     <td th:text="${task.getCost()}"></td>
@@ -72,8 +77,10 @@
         </form>
     </td>
     </tr>
+    </thead>
 </table>
 </th:block>
 </span>
-</body>
+</body>>
 </html>
+
