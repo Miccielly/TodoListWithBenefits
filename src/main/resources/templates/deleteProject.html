@@ -4,6 +4,12 @@
     <title>DeleteProject</title>
 </head>
 <body>
+<div th:insert="fragments/topbar :: topbar"></div>
+
+
+<form th:action="@{/}">
+    <input type="submit" value="Back"/>
+</form>
 
 <h1>Are you sure about deleting project with processes and tasks in it?</h1>
 

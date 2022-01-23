@@ -261,7 +261,9 @@ public class CreateController {
     public String deleteTaskForm(Model model, @PathVariable String taskId)
     {
         Task task = taskRepository.findById(taskId).get();
+        Process process = processRepository.findById(task.getParentId()).get();
 
+        model.addAttribute("process", process);
         model.addAttribute("task", task);
 
         return "deleteTask";

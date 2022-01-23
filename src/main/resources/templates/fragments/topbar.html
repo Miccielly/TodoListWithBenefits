@@ -1,0 +1,11 @@
+<div th:fragment="topbar">
+
+    <form th:action="@{/}">
+        <input type="submit" value="Main menu"/>
+    </form>
+
+<h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Odhlásit!"/>
+</form>
+    <br><div>

@@ -5,10 +5,8 @@
 </head>
 <body>
 <h1>Todo List With Benefits</h1>
-<h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Odhlásit!"/>
-</form><br>
+<div th:insert="fragments/topbar :: topbar"></div>
+
 
 <form th:action="@{/createProject}">
     <input type="submit" value="Vytvořit projekt!"/>

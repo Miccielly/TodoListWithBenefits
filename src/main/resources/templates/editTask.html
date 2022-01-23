@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<div th:insert="fragments/topbar :: topbar"></div>
+
+
 <h1>Úprava úlohy</h1>
 
 <form action="#" th:action="@{/editTask/{taskId}(taskId = ${task.getId()})}" th:object="${task}" method="post">

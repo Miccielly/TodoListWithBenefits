@@ -4,8 +4,15 @@
     <title>Project</title>
 </head>
 <body>
+
+<div th:insert="fragments/topbar :: topbar"></div>
+
 <h1 th:text="${project.getDescription()}"></h1>
 
+<label for="pselect">Timer for process:</label><br>
+<select id="pselect" >
+    <option th:each="process: ${processStore.getProcesses()}" th:value="${process.getId()}" th:text="${process.getDescription()}"></option>
+</select><br>
 <div th:insert="fragments/stopwatch :: stopwatch"></div>
 
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">

@@ -4,6 +4,9 @@
     <title>Hello</title>
 </head>
 <body>
+
+<div th:insert="fragments/topbar :: topbar"></div>
+
 <h1>Přidání projektu</h1>
 <p>
     <form action= "#" th:action="@{/createProject}" th:object="${project}" method="post">
