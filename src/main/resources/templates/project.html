@@ -9,19 +9,20 @@
 
 <h1 th:text="${project.getDescription()}"></h1>
 
+<div id="timer" th:if="${processStore != null && processStore.getProcesses().size() > 0}">
 <label for="pselect">Timer for process:</label><br>
 <select id="pselect" >
     <option th:each="process: ${processStore.getProcesses()}" th:value="${process.getId()}" th:text="${process.getDescription()}"></option>
 </select><br>
 <div th:insert="fragments/stopwatch :: stopwatch"></div>
-
+</div>
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
     <input type="submit" value="Přidat proces!"/>
 </form>
 <!--<h1 th:text="${project.getCurrentDate()}"></h1>-->
 <!--<p th:text="${project.getDateDifference()}"></p>-->
 
-<!--<h1 th:if="${ processStore.getProcesses().size() == 0}"> Neobsahuje žádné procesy!</h1>-->
+<h1 th:if="${ processStore == null || processStore.getProcesses().size() == 0}"> Neobsahuje žádné procesy!</h1>
 
 <!--Wrapnout eache do if divu jelikož each má přednost před ifem na stejném řádku-->
 <span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
@@ -48,7 +49,7 @@
         <th>Čas přidělený k úloze</th>
         <th>Časová rezerva</th>
     </tr>
-    <tr th:each="task: ${process.getTasks()}">
+    <tr th:if="${!task.isOnlyNode()}" th:each="task: ${process.getTasks()}">
     <td th:text="${task.getDescription()}"></td>
     <td th:text="${task.getCost()}"></td>
     <td th:text="${task.getDeadline()}"></td>

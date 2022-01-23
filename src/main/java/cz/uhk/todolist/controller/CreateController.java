@@ -196,13 +196,15 @@ public class CreateController {
         Task editedTask = taskRepository.findById(taskId).get();
         Process process = processRepository.findById(editedTask.getParentId()).get();
 
+        //NA START A END TASK SE PROSTĚ NESMÍ SAHAT
+        if(!editedTask.isOnlyNode()) {
+            editedTask.setDescription(task.getDescription());
+            editedTask.setDeadline(task.getDeadline());
+            editedTask.setPreviousTaskId(task.getPreviousTaskId());
+            editedTask.setNextTaskId(task.getNextTaskId());
 
-        editedTask.setDescription(task.getDescription());
-        editedTask.setDeadline(task.getDeadline());
-        editedTask.setPreviousTaskId(task.getPreviousTaskId());
-        editedTask.setNextTaskId(task.getNextTaskId());
-
-        taskRepository.save(editedTask);
+            taskRepository.save(editedTask);
+        }
         return "redirect:/project/"+process.getParentId();
     }
 
@@ -273,10 +275,14 @@ public class CreateController {
     public String deleteTask(@ModelAttribute Task task, Model model, @PathVariable String taskId)
     {
         Task t = taskRepository.findById(taskId).get();
+
         Process process = processRepository.findById(t.getParentId()).get();
         String projectId = process.getParentId();
 
-        taskRepository.deleteById(taskId);
+        //NA START A END TASK SE PROSTĚ NESMÍ SAHAT
+        if(!task.isOnlyNode()) {
+            taskRepository.deleteById(taskId);
+        }
         return "redirect:/project/"+projectId;
     }
 
