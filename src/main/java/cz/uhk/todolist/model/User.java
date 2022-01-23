@@ -2,13 +2,14 @@ package cz.uhk.todolist.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Set;
 
 @Document(collection = "Users")
 public class User {
-    enum Role {Admin, User}
 
     @Id
     private String id;
@@ -16,17 +17,9 @@ public class User {
 
     private String username;    //TODO udělat username unikátní
     private String password;
-    private Role role;
-
     private List<String> projectIds;
-
-    public User(String username, String password, Role role, List<String> projectIds) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.projectIds = projectIds;
-    }
+    @DBRef
+    private Role role = new Role("ROLE_ADMIN");
 
     public User(String username, String password) {
         this.username = username;
