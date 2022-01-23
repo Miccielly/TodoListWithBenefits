@@ -3,9 +3,11 @@ package cz.uhk.todolist;
 import cz.uhk.todolist.model.Project;
 import cz.uhk.todolist.model.Process;
 import cz.uhk.todolist.model.Task;
+import cz.uhk.todolist.model.User;
 import cz.uhk.todolist.services.ProcessRepository;
 import cz.uhk.todolist.services.ProjectRepository;
 import cz.uhk.todolist.services.TaskRepository;
+import cz.uhk.todolist.services.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +31,9 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(TodoListWithBenefitsApplication.class, args);
     }
@@ -36,6 +41,8 @@ public class TodoListWithBenefitsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+//        User user = new User("bartomi3", "wasd");
+//        userRepository.save(user);
 
     }
 
