@@ -52,7 +52,7 @@ public class MyUserPrincipal implements UserDetails {
         return true;
     }
 
-    public User getAppUser() {
+    public User getUser() {
         return user;
     }
 }

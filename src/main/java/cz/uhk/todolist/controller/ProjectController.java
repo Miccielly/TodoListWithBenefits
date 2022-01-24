@@ -42,7 +42,7 @@ public class ProjectController {
         if (project != null) {
             ProcessStore processStore = new ProcessStore(processRepository.findByParentId(project.getId()));
             //System.out.println("processStore.getProcesses == null " + (processStore.getProcesses() == null));
-            //System.out.println(processStore.getProcesses().size());
+            System.out.println(processStore.getProcesses().size());
 
             if (processStore != null && processStore.getProcesses().size() > 0) {
                 //System.out.println("processesSize: " + processStore.getProcesses().size());

@@ -22,7 +22,7 @@
 <h4 th:if="${ processStore == null || processStore.getProcesses().size() == 0}"> Neobsahuje žádné procesy!</h4>
 
 <!--Wrapnout eache do if divu jelikož each má přednost před ifem na stejném řádku-->
-<span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 2}">
+<span th:if="${processStore != null && processStore.getProcesses() != null && processStore.getProcesses().size() > 0}">
 <th:block th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
 
@@ -44,7 +44,7 @@
         <input type="submit" value="Přidat úlohu!"/>
     </form>
 
-<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 0}" class="table">
+<table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 2}" class="table">
     <thead class="thead-dark">
     <tr>
         <th>Task</th>
@@ -58,12 +58,12 @@
     <td th:text="${task.getCost()}"></td>
     <td th:text="${task.getDeadline()}"></td>
     <td th:text="${task.getTimeReserve()}"></td>
-    <td>
-        <form th:action="@{/markTask/{taskId}(taskId=${task.getId()})}">
+<!--    <td>-->
+<!--        <form th:action="@{/markTask/{taskId}(taskId=${task.getId()})}">-->
 <!--            Tlačítko má označovat kde v procesu jsme pro lepší orientaci a počítání s časovými rezervami-->
-            <input type="submit" value="Done"/>
-        </form>
-    </td>
+<!--            <input type="submit" value="Done"/>-->
+<!--        </form>-->
+<!--    </td>-->
 
     <td>
          <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
@@ -80,6 +80,6 @@
 </table>
 </th:block>
 </span>
-</body>>
+</body>
 </html>
 

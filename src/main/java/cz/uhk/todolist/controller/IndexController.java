@@ -10,7 +10,6 @@ import cz.uhk.todolist.utils.ProjectStore;
 import cz.uhk.todolist.services.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,11 +37,13 @@ public class IndexController {
     public ModelAndView showMainpage () {
         ModelAndView model = new ModelAndView("index");
         List<Project> projects = projectRepository.findAll();
-//        List<Project> projects = new ArrayList<>();
 //
-//        //TODO získat informaci o nalogovaném uživateli
+//        //TODO získat informaci o nalogovaném uživateli a zobrazit jeho projekty
 //        User user = userRepository.findByUsername("pavel");
 //
+          //zorazení projektů, které jsou přiřazeny uživateli
+//        List<Project> projects = new ArrayList<>();
+
 //        for(int i = 0; i < user.getProjectIds().size(); i++)
 //        {
 //            projects.add(projectRepository.findById(user.getProjectIds().get(i)).get());
@@ -58,10 +59,7 @@ public class IndexController {
             projectRepository.save(projects.get(i));    //uložení elapsedTime do databáze
         }
 
-
-
             projectStore = new ProjectStore(projects);
-
 
         model.addObject(projectStore);
         return model;
@@ -70,7 +68,6 @@ public class IndexController {
     @GetMapping({"/login"})
     public String showLogin()
     {
-        //ModelAndView model = new ModelAndView("")
         return "login";
     }
 

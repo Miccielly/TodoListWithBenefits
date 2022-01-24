@@ -24,23 +24,8 @@ public class MyUserDetailsService implements UserDetailsService {
     BCryptPasswordEncoder encoder;
 
     //Vrací UserDetails Springbootu, které existují na základě dat Usera z databáze (existuje User v DB? => tady jsou jeho user details!)
-/*
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        System.out.println("User??");
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new MyUserPrincipal(user);   //Pro spring, který s těmito UserDetails nakládá
-    }
-    */
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-
-
         User user = userRepository.findByUsername(username);
         if(user == null){
             throw new UsernameNotFoundException("User Name "+username +"Not Found");
