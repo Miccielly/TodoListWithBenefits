@@ -1,6 +1,4 @@
-FROM adoptopenjdk/openjdk15:ubi
-ENV APP_HOME=/usr/app/
-WORKDIR $APP_HOME
-COPY build/libs/*.jar app.jar
-EXPOSE 8080
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ADD target/TodoListWithBenefits06.jar app.jar
 CMD ["java", "-jar", "app.jar"]
