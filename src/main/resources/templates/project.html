@@ -26,10 +26,16 @@
 <th:block th:each="process: ${processStore.getProcesses()}">
     <h1 th:text="${process.getDescription()}"></h1>
 
+        <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
+
+              <form th:action="@{/editProcess/{processId}(processId=${process.getId()})}">
+            <input type="submit" value="Upravit process!"/>
+        </form>
+
           <form th:action="@{/deleteProcess/{processId}(processId=${process.getId()})}">
             <input type="submit" value="Smazat!"/>
         </form>
-
+        </div>>
     <label for="pDeadline">Deadline procesu:</label>
     <p id="pDeadline" th:text="${process.getDeadline()}"></p>
 
