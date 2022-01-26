@@ -16,7 +16,7 @@
 
 <form action= "#" th:action="@{/deleteProcess/{processId}(processId = ${process.getId()})}" th:object="${process}" method="post">
     <label for="delbtn" th:text="${process.getDescription()}">:</label><br>
-    <button id="delbtn" type="submit">Opravdu smazat!</button>
+    <button id="delbtn" type="submit" class="btn btn-outline-danger">Opravdu smazat!</button>
 </form>
 
 </body>

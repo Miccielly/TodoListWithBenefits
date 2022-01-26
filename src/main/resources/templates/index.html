@@ -9,7 +9,7 @@
 
 
 <form th:action="@{/createProject}">
-    <input type="submit" value="Vytvořit projekt!"/>
+    <input type="submit" value="Vytvořit projekt!" class="btn btn-success"/>
 </form>
 
 
@@ -29,18 +29,18 @@
         <td th:text="${project.getElapsedTime()}"></td>
         <td>
             <form th:action="@{/project/{id}(id=${project.getId()})}">
-                <input type="submit" value="Otevřít"/>
+                <input type="submit" value="Otevřít" class="btn btn-success"/>
             </form>
         </td>
         <td>
             <form th:action="@{/editProject/{id}(id=${project.getId()})}">
-                <input type="submit" value="Upravit!"/>
+                <input type="submit" value="Upravit!" class="btn btn-primary"/>
             </form>
         </td>
 
         <td>
             <form th:action="@{/deleteProject/{id}(id=${project.getId()})}">
-                <input type="submit" value="Smazat!"/>
+                <input type="submit" value="Smazat!" class="btn btn-warning"/>
             </form>
         </td>
     </tr>

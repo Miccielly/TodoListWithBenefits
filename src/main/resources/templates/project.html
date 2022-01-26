@@ -10,7 +10,7 @@
 <h1 th:text="${project.getDescription()}"></h1>
 
 <form th:action="@{/createProcess/{parentId}(parentId=${project.getId()})}">
-    <input type="submit" value="Přidat proces!"/>
+    <input type="submit" value="Přidat proces!" class="btn btn-success"/>
 </form>
 
 <div id="timer" th:if="${processStore != null && processStore.getProcesses().size() > 0}">
@@ -29,11 +29,11 @@
         <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
 
               <form th:action="@{/editProcess/{processId}(processId=${process.getId()})}">
-            <input type="submit" value="Upravit process!"/>
+            <input type="submit" value="Upravit process!" class="btn btn-primary"/>
         </form>
 
           <form th:action="@{/deleteProcess/{processId}(processId=${process.getId()})}">
-            <input type="submit" value="Smazat!"/>
+            <input type="submit" value="Smazat!" class="btn btn-danger"/>
         </form>
         </div>>
     <label for="pDeadline">Deadline procesu:</label>
@@ -47,7 +47,7 @@
     <br>
 
     <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
-        <input type="submit" value="Přidat úlohu!"/>
+        <input type="submit" value="Přidat úlohu!" class="btn btn-success"/>
     </form>
 
 <table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 2}" class="table">
@@ -73,12 +73,12 @@
 
     <td>
          <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
-                <input type="submit" value="Upravit!"/>
+                <input type="submit" value="Upravit!" class="btn btn-primary"/>
             </form>
     </td>
     <td>
         <form th:action="@{/deleteTask/{taskId}(taskId=${task.getId()})}">
-            <input type="submit" value="Smazat!"/>
+            <input type="submit" value="Smazat!" class="btn btn-danger"/>
         </form>
     </td>
     </tr>

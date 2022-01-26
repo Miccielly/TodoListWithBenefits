@@ -14,7 +14,7 @@
 
 <form action= "#" th:action="@{/deleteTask/{taskId}(taskId = ${task.getId()})}" th:object="${task}" method="post">
     <label for="delbtn" th:text="${task.getDescription()}">:</label><br>
-    <button id="delbtn" type="submit">Opravdu smazat!</button>
+    <button id="delbtn" type="submit" class="btn btn-outline-danger">Opravdu smazat!</button>
 </form>
 
 </body>

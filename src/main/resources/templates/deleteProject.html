@@ -15,7 +15,7 @@
 
 <form action= "#" th:action="@{/deleteProject/{projectId}(projectId = ${project.getId()})}" th:object="${project}" method="post">
     <label for="delbtn" th:text="${project.getDescription()}">:</label><br>
-    <button id="delbtn" type="submit">Opravdu smazat!</button>
+    <button id="delbtn" type="submit" class="btn btn-outline-danger">Opravdu smazat!</button>
 </form>
 
 </body>
