@@ -1,0 +1,14 @@
+version: "3"
+services:
+  todolist-mongodb:
+    image: mongo:5.0
+    container_name: todolistmongodb
+    ports:
+      - 27017:27017
+  todolist-springboot:
+    image: todolist01
+    container_name: todolistspringboot
+    ports:
+      - 8080:8080
+    links:
+      - todolist-mongodb
