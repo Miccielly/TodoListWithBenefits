@@ -3,6 +3,19 @@
     <meta charset="UTF-8">
     <title>Project</title>
 </head>
+
+<style>
+    .stopwatch-number {
+        font-size: 300%;
+        color: blue;
+        font-weight: bold;
+    }
+
+    .stopwatch-button {
+        margin: 5px;
+    }
+</style>
+
 <body>
 
 <div th:insert="fragments/topbar :: topbar"></div>
@@ -15,7 +28,7 @@
 
 <div id="timer" th:if="${processStore != null && processStore.getProcesses().size() > 0}">
 
-<div th:insert="fragments/stopwatch :: stopwatch(timeStore)"></div>
+    <div th:insert="fragments/stopwatch :: stopwatch(timeStore)"></div>
 </div>
 
 
@@ -28,6 +41,10 @@
 
         <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
 
+              <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
+        <input type="submit" value="Přidat úlohu!" class="btn btn-success"/>
+    </form><br>
+
               <form th:action="@{/editProcess/{processId}(processId=${process.getId()})}">
             <input type="submit" value="Upravit process!" class="btn btn-primary"/>
         </form>
@@ -36,19 +53,19 @@
             <input type="submit" value="Smazat!" class="btn btn-danger"/>
         </form>
         </div>
+
     <label for="pDeadline">Deadline procesu:</label>
     <p id="pDeadline" th:text="${process.getDeadline()}"></p>
 
     <label for="deadlineSum">Celkový čas ke splnění úloh:</label>
-    <p id="deadlineSum" th:if="${process != null && process.getTasks().size > 0}" th:text="${process.getDeadlineSum()}"></p>
+    <p id="deadlineSum" th:if="${process != null && process.getTasks().size > 0}"
+       th:text="${process.getDeadlineSum()}"></p>
 
         <label for="elapsedTime">Elapsed time:</label>
     <p id="elapsedTime" th:text="${process.getElapsedTime()}"> </p>
     <br>
 
-    <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
-        <input type="submit" value="Přidat úlohu!" class="btn btn-success"/>
-    </form><br>
+
 
 <table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 2}" class="table">
     <thead class="table-dark">
