@@ -35,7 +35,7 @@
           <form th:action="@{/deleteProcess/{processId}(processId=${process.getId()})}">
             <input type="submit" value="Smazat!" class="btn btn-danger"/>
         </form>
-        </div>>
+        </div>
     <label for="pDeadline">Deadline procesu:</label>
     <p id="pDeadline" th:text="${process.getDeadline()}"></p>
 
@@ -48,28 +48,29 @@
 
     <form th:action="@{/createTask/{parentId}(parentId=${process.getId()})}">
         <input type="submit" value="Přidat úlohu!" class="btn btn-success"/>
-    </form>
+    </form><br>
 
 <table th:if="${processStore.getProcesses() != null && process.getTasks().size() > 2}" class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
     <tr>
-        <th>Task</th>
-        <th>V jaký čas od startu začít</th>
-        <th>Čas přidělený k úloze</th>
-        <th>Časová rezerva</th>
+        <th scope="col">Task</th>
+        <th scope="col">V jaký čas od startu začít</th>
+        <th scope="col">Čas přidělený k úloze</th>
+        <th scope="col">Časová rezerva</th>
     </tr>
     </thead>
+    <tbody>
     <tr th:if="${!task.isOnlyNode()}" th:each="task: ${process.getTasks()}">
     <td th:text="${task.getDescription()}"></td>
     <td th:text="${task.getCost()}"></td>
     <td th:text="${task.getDeadline()}"></td>
     <td th:text="${task.getTimeReserve()}"></td>
-<!--    <td>-->
-<!--        <form th:action="@{/markTask/{taskId}(taskId=${task.getId()})}">-->
-<!--            Tlačítko má označovat kde v procesu jsme pro lepší orientaci a počítání s časovými rezervami-->
-<!--            <input type="submit" value="Done"/>-->
-<!--        </form>-->
-<!--    </td>-->
+
+    <td>
+        <form th:action="@{/markTask/{taskId}(taskId=${task.getId()})}">
+            <input type="submit" value="Done" class="btn btn-info"/>
+        </form>
+    </td>
 
     <td>
          <form th:action="@{/editTask/{taskId}(taskId=${task.getId()})}">
@@ -82,7 +83,7 @@
         </form>
     </td>
     </tr>
-    </thead>
+    </tbody>
 </table>
 </th:block>
 </span>

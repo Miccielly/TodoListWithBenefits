@@ -10,16 +10,32 @@
                 crossorigin="anonymous"></script>
     </head>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-            <form th:action="@{/}">
-                <input type="submit" value="Main menu"/>
-            </form>
+    <h2>Todo List With Benefits</h2>
 
-            <h4 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Odhlásit!"/>
-            </form>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav>
+
+            <!--            <form th:action="@{/}">-->
+<!--                <input type="submit" value="Main menu" class="nav-link"/>-->
+<!--            </form>-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home<span class="sr-only"></span></a>
+                    </li>
+                </ul>
+
+
+                <h4 class="nav-link" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h4>
+
+                <form th:action="@{/logout}" method="post"  >
+                    <input class="btn btn-outline-light" type="submit" value="Odhlásit!"/>
+                </form>
+
+            </div>
+
+
         </nav>
     </nav>
     </nav><br>
