@@ -6,7 +6,7 @@ services:
     ports:
       - 27017:27017
   todolist-springboot:
-    image: todolist01
+    image: todolist07
     container_name: todolistspringboot
     ports:
       - 8080:8080
