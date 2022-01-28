@@ -2,13 +2,20 @@ version: "3"
 services:
   todolist-mongodb:
     image: mongo:5.0
-    container_name: todolistmongodb
+    container_name: todolistmongodb01
     ports:
       - 27017:27017
+    networks:
+      - shared-net
   todolist-springboot:
-    image: todolist07
-    container_name: todolistspringboot
+    image: todolistwithbenefits08
     ports:
-      - 8080:8080
+        - 8080:8080
+    container_name: todolistspringboot01
     links:
       - todolist-mongodb
+    networks:
+      - shared-net
+networks:
+  shared-net:
+    driver: bridge
